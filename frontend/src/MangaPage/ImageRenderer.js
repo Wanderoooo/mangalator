@@ -66,7 +66,7 @@ async function alterImageForTesting(images) {
     // each representing an image with text overlaid
     return newImages;
 }
-
+ 
 
 
 export default ImageProcessor;

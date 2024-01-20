@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
-import logo from './logo.svg';
-import './App.css';
-import ImageRenderer from './ImageRenderer';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import HomePage from './HomeScreen/HomeScreen';
+import AccountPage from './AccountScreen/AccountScreen';
+import MangaPage from './MangaPage/MangaPage';
 
 function App() {
-  const [images, setImages] = useState([]);
-
-  const handleImageUpload = event => {
-    let files = event.target.files;
-    let imagesArray = [...images];
-
-    for (let i = 0; i < files.length; i++) {
-      let reader = new FileReader();
-
-      reader.onloadend = () => {
-        imagesArray.push(reader.result);
-        setImages(imagesArray);
-      };
-
-      reader.readAsDataURL(files[i]);
-    }
-  };
-
-  console.log(images);
-
   return (
-    <div className="App">
-      <ImageRenderer imgs={images}/>
-      <input type="file" accept=".png, .jpg, .jpeg" multiple onChange={handleImageUpload} title="Input files here" placeholder="ohueidjsk" />
+    <Router>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/account">Account</Link>
+          </li>
+          <li>
+            <Link to="/translator">Translator</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/translator" element={<MangaPage />} />
+      </Routes>
     </div>
+  </Router>
   );
 }
 
