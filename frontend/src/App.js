@@ -28,17 +28,17 @@ function App() {
         <img
           loading="lazy"
           src={menu}
-          className="aspect-square overlay"
-          width='34px'
-          height='34px'
+          className="aspect-square overlay menu"
+          width='54px'
+          height='54px'
           justify='left'
         />
         <img
           loading="lazy"
           src={mangalatorlogo}
-          className="aspect-square overlay"
-          width='100px'
-          height='100px'
+          className="aspect-square overlay logo"
+          width='97px'
+          height='97px'
         />
         <div className="rectangle underlay" />
       </div>

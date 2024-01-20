@@ -34,22 +34,31 @@
   align-items: center; /* Vertically center */
 }
 
+.logo {
+  width: 100px;
+  height: 100px;
+  top: 12.5px;
+}
+
+.menu {
+  z-index: 2;
+  left: 34px;
+  top: 34px;
+}
+
 .overlay {
   position: absolute;
   z-index: 1;
-  width: 100px;
-  height: 100px;
-  top: 0px;
 }
 
 .rectangle {
   width: 100%;
-  height: 100px;
+  height: 122px;
   background: #e2fdf8;
 }
 
 .topbar {
-  height: 100px;
+  height: 122px;
 }
 
 .underlay {
