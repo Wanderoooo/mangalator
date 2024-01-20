@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
 import AccountPage from './AccountScreen/AccountScreen';
 import MangaPage from './MangaPage/MangaPage';
+import LoginPage from './LoginScreen/Login';
+import RegisterPage from './LoginScreen/Register';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/translator" element={<MangaPage />} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
       </Routes>
     </div>
   </Router>

@@ -7,6 +7,7 @@ function ImageProcessor( {imgs} ) {
 
     const processImages = async () => {
         try {
+            console.log("TODO: PROCESS IMAGES NEEDS API HELP")
             //const response = await axios.post('https://your-api-url.com/process', images);
             let newImages = await alterImageForTesting(imgs);
             setProcessedImages(newImages);

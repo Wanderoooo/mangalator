@@ -1,6 +1,12 @@
+import Login from "../LoginScreen/Login";
+
 function HomeScreen() {
     return (
-        <p>HomeScreen</p>
+        <div>
+            <p>HomeScreen</p>
+            <Login/>
+
+        </div>
     );
 }
 
