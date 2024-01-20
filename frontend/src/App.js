@@ -3,6 +3,11 @@ import './App.css';
 import ImageRenderer from './MangaPage/ImageRenderer';
 import mangalatorlogo from './assets/mangalatorlogo.png';
 import menu from './assets/menu.svg'
+import user from './assets/user.svg'
+import upload from './assets/upload.svg'
+import search from './assets/search.svg'
+import login from './assets/log-in.svg'
+import bookopen from './assets/book-open.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
 import AccountPage from './AccountScreen/AccountScreen';
@@ -51,7 +56,7 @@ function App() {
         <span className="flex justify-between gap-5 px-9 py-8 border-b-stone-400 border-b border-solid items-start max-md:px-5">
           <img
             loading="lazy"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/a0805463ef360c31955c7aa61c46fb2e038ff935f7c582079aa2a0801fd1003a?"
+            src={user}
             className="aspect-square object-contain object-center w-6 overflow-hidden shrink-0 max-w-full"
           />
           <div className="text-black text-3xl self-stretch">Read</div>
