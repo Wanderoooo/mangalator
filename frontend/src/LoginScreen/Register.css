@@ -39,5 +39,18 @@ form {
     flex-direction: column;
   }
 
+  .Paper {
+    padding: 20px;
+    width: 500px;  /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    margin: auto;
+
+  }
+
+  .sectionContainer {
+    display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  }
   
   

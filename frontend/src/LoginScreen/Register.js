@@ -6,6 +6,7 @@ import './Register.css'
 import axios from 'axios';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Paper } from "@mui/material";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -95,8 +96,9 @@ function RegisterPage() {
 
 
     return (
-        <div>
-            <section> 
+        
+        <section className="sectionContainer"> 
+            <Paper className="Paper">
                 <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Register</h1>
                 <form onSubmit={handleSubmit}>
@@ -185,9 +187,9 @@ function RegisterPage() {
                         Already Signed Up? <Link to='/login'>Sign In</Link>
                     </p>
                 </form>
-
-            </section>
-        </div>
+            </Paper>
+        </section>
+        
     )
 }
 
