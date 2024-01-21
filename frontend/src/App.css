@@ -87,8 +87,9 @@
 }
 
 .sider-text {
-  font-family: 'AnimeAce', Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 14px;
+  vertical-align: middle;
 }
 
 
