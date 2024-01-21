@@ -33,7 +33,7 @@ export default function MangaReader(props) {
             <img src={img7035} alt="po" className='cimg' />
           </div>
           <div>
-            <img src={mangalatorlogo} alt="w" className='cimg' />
+            <img src={img7036} alt="w" className='cimg' />
           </div>
         </Carousel>
         <Button className="carousel-button carousel-button-right" onClick={next} icon={<RightOutlined />}/>
