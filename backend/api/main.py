@@ -72,12 +72,14 @@ async def signup(request: Request):
 #         return {"login success"}
 #     except Exception as e:
 #         return {"find failed!"}
-    
+
+# generates a random string id (10^10 chance it is not unique....)
 def generate_unique_string(length=10):
     characters = string.ascii_letters + string.digits
     unique_string = ''.join(secrets.choice(characters) for _ in range(length))
     return unique_string
 
+# returns a list of unique paths given a list of base64 strings.
 async def cook(files: List[UploadFile] = File(...)):
     # Save the uploaded image to the upload directory (optional)
 
@@ -137,7 +139,6 @@ async def add(request: Request):
     except Exception as e:
         raise HTTPException(status_code=404, detail="image translate failed")
     
-
 
 # payload: {"key", "name"}
 # return: [{"image": path}]
