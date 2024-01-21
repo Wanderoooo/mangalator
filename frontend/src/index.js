@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthProvider';
 import { KeyProvider } from './context/KeyContext';
+import { MangaContextProvider } from './context/MangaReaderContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <KeyProvider>
-        <App />
+        <MangaContextProvider>
+          <App />
+        </MangaContextProvider>
       </KeyProvider>
       
     </AuthProvider>

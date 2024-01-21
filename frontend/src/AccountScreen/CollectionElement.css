@@ -1,0 +1,14 @@
+img {
+    width: 200px;  /* replace with your desired width */
+    height: auto;  /* height will adjust to maintain aspect ratio */
+  }
+
+
+.leftPadding {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  flex-direction: column;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
