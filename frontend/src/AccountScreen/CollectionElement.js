@@ -3,8 +3,7 @@ import AuthContext from "../context/AuthProvider";
 import axios from "axios";
 import { KeyContext } from "../context/KeyContext";
 import { useNavigate } from "react-router";
-
-
+import "./CollectionElement.css"
 
 function CollectionElement({collectionInfo}) {
     const {name, data} = collectionInfo;
@@ -43,9 +42,7 @@ function CollectionElement({collectionInfo}) {
     return (
         <TouchableOpacity>
             <h2>{name}</h2>
-            {data.map((image, index) => (
-                <img key={index} src={image} alt="" onClick={handleImageClick} />
-            ))}
+            <img className="coverImage" key="coverImage" src={data[0]} alt="" onClick={handleImageClick} />
         </TouchableOpacity>
     );
 }
@@ -67,6 +64,9 @@ function TouchableOpacity({ children, onClick }) {
         onMouseLeave={(e) => {
           e.currentTarget.style.opacity = '1';
         }}
+        onMouseEnter={(e) => {
+            e.currentTarget.style.opacity = '0.5';
+          }}
       >
         {children}
       </div>

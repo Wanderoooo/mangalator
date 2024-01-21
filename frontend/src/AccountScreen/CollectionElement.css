@@ -1,0 +1,4 @@
+img {
+    width: 200px;  /* replace with your desired width */
+    height: auto;  /* height will adjust to maintain aspect ratio */
+  }
