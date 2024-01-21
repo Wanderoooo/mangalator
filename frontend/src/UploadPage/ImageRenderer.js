@@ -51,7 +51,7 @@ function ImageProcessor( {imgs} ) {
         <div className="imageRenderer">
             <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading...</p>
             <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Time Elapsed: {timeElapsed}</p>
-            <Button type="primary" style={{ background: '#ffb7ff', borderColor: '#ffb7ff', margin: '10px'}} onClick={() => processImages()}>
+            <Button type="primary" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}} onClick={() => processImages()}>
                 Translate Images!
             </Button>
             <div>
