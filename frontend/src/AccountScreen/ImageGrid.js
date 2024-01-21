@@ -16,11 +16,8 @@ function ImageGrid() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('YOUR_API_URL', 
-        {
-            headers: { Authorization: `Bearer ${auth.accessToken}` }
-        });
-        ///setImages(response?.data);
+        const response = await axios.get('YOUR_API_URL', JSON.stringify({key: auth.accessToken})); 
+        setImages(response?.data);
       } catch (error) {
         if (!error?.response) {
             setErrMsg('No Server Response');
