@@ -12,9 +12,11 @@ Mangalator is a platform designed to help mangakas reach a wider audience. It al
 
 ## Setup
 
-pip install --upgrade httpcore \
-pip install --upgrade httpx \
-pip install git+https://github.com/kodalli/pydensecrf.git
+python -m venv .venv \
+./.venv/Scripts/Activate \
+pip install -r requirements.txt \
+cd manga-image-translator \
+pip install -r requirements.txt
 
 ## Contact
 
