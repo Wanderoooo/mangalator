@@ -1,8 +1,12 @@
 import { useRef, useState, useEffect, useContext} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { Form, Input, Button, Typography, Alert } from 'antd';
+import './Login.css'; // Import the CSS file
 import AuthContext from '../context/AuthProvider';
+import Paper from '@mui/material/Paper';
+const { Title } = Typography;
+
 
 function Login() {
     const userRef = useRef();
@@ -27,7 +31,7 @@ function Login() {
     }, [user, pwd])
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         try {
             console.log("TODO: HANDLE SUBMIT NEEDS API HELP")
             const response = await axios.post('https://your-api-url.com/process',
@@ -62,35 +66,28 @@ function Login() {
 
     //Steal the HTML and authentication from this video https://youtu.be/X3qyxo_UTR4?si=Evobd3HCobfdD1MU
     return (
-        <section>
+        <section className="sectionContainer">
+            <Paper className="Paper">
+                
             <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input 
-                    type="text" 
-                    id="username"
-                    ref={userRef} 
-                    autoComplete='off'
-                    onChange={(e) => setUser(e.target.value)} 
-                    value={user} 
-                    required
-                />
-                <label htmlFor="password">Password:</label>
-                <input 
-                    type="password" 
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)} 
-                    value={pwd} 
-                    required
-                />
-                <button>Sign In</button>
-            </form>
+            <Form onFinish={handleSubmit}>
+                <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
+                <Input onChange={(e) => setUser(e.target.value)} value={user} ref={userRef} />
+                </Form.Item>
+                <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
+                <Input.Password onChange={(e) => setPwd(e.target.value)} value={pwd} />
+                </Form.Item>
+                <Form.Item>
+                <Button type="primary" htmlType="submit">Sign In</Button>
+                </Form.Item>
+            </Form>
             <p>
                 <span className="line">
-                    <Link to="/register">Sign Up</Link>
+                    Don't have an account yet? <Link to="/register">Sign Up</Link>
                 </span>
             </p>
+            </Paper>
             
         
         </section>

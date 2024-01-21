@@ -1,3 +1,10 @@
+.button {
+    margin-top: 10px;
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    height: 30px;
+}
+
 .hide {
     display: none;
 }
@@ -5,6 +12,19 @@
 .valid {
     display: inline;
 }
+
+.input {
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+input:focus {
+    outline: none;
+    border: 3px solid #ADD8E6; /* Light blue border */
+}
+  
 
 .invalid {
     display: inline;
@@ -18,4 +38,19 @@ form {
     display: flex;
     flex-direction: column;
   }
+
+  .Paper {
+    padding: 20px;
+    width: 500px;  /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    margin: auto;
+
+  }
+
+  .sectionContainer {
+    display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  }
+  
   

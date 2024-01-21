@@ -1,9 +1,10 @@
 import ImageGrid from "./ImageGrid";
 
+
 function AccountScreen() {
     return (
-        <div>
-            <h1>Image History</h1>
+        <div className="imageHistoryContainer">
+            <h1>Collection History</h1>
             <ImageGrid />
         </div>
     );

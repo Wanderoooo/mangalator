@@ -5,13 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/AuthProvider';
 import { KeyProvider } from './context/KeyContext';
+import { MangaContextProvider } from './context/MangaReaderContext';
+import { AccountCollectionContext } from './context/AccountCollectionContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
       <KeyProvider>
-        <App />
+        <MangaContextProvider>
+          <AccountCollectionContext> //For testing without Authentication;
+            <App />
+          </AccountCollectionContext>
+        </MangaContextProvider>
       </KeyProvider>
       
     </AuthProvider>

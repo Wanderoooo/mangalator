@@ -10,7 +10,11 @@ Mangalator is a platform designed to help mangakas reach a wider audience. It al
 - **Automatic Translation**: Uploaded manga are automatically translated, making them accessible to a global audience.
 - **Read Anywhere**: Internet users worldwide can read the translated manga.
 
-## Future Plans
+## Setup
+
+pip install --upgrade httpcore \
+pip install --upgrade httpx \
+pip install git+https://github.com/kodalli/pydensecrf.git
 
 ## Contact
 

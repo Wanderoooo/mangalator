@@ -4,7 +4,7 @@
 }
 
 .ant-menu-item-selected {
-  background-color: #b8e0b1 !important; /* Change to your desired color */
+  background-color: #b2d8c6 !important; /* Change to your desired color */
 }
 
 
@@ -82,8 +82,7 @@
 }
 
 .sider {
-  background-color: #c9e4ca !important; 
-  scrollbar-highlight-color: #000000 !important;
+  background-color: #9dcbba !important; 
 }
 
 .sider-text {

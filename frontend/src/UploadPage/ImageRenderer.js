@@ -5,6 +5,10 @@ import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
 
+import { Button, Form, Input } from 'antd';
+    import { Paper } from '@mui/material';
+import { AccountCollection } from '../context/AccountCollectionContext';
+
 function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
     const [timeElapsed, setTimeElapsed] = useState(1);
@@ -13,8 +17,12 @@ function ImageProcessor( {imgs} ) {
     const throbRef = useRef();
     const navigate = useNavigate();
     const { currentKey, setCurrentKey } = useContext(KeyContext);
-    const { auth } = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
 
+    const [albumName, setAlbumname ] = useState('');
+
+
+    const { setAccountContext } = useContext(AccountCollection);
 
     useEffect(() => {
         let interval;
@@ -33,30 +41,46 @@ function ImageProcessor( {imgs} ) {
         try {
             console.log("TODO: PROCESS IMAGES NEEDS API HELP")
             setLoading(true);
-            //const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.accessToken}));
-            let newImages = await alterImageForTesting(imgs);
+            console.log(imgs);
+            console.log(albumName);
+            console.log("Images: " + imgs);
+            console.log(auth.user);
+            const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": "user1", "name": albumName});
+            //let newImages = await alterImageForTesting(imgs);
             setLoading(false);
-            setProcessedImages(newImages);
-            if (newImages.length > 0 && !loading) {
-                setCurrentKey('account');
-                navigate('/account');
-            }
+            setProcessedImages(response?.data.translated);
+            console.log("Number of items in response" + response?.data);
+            
+            setAccountContext(response?.data)
+            setCurrentKey('account');
+            navigate('/account');
         } catch (error) {
-            console.error('Error processing images:', error);
+            if (!error?.response) {
+                console.log('No Server Response');
+            } else if (error.response?.status === 400) {
+                console.log('Error Code 400: The server could not understand the request due to invalid syntax.');
+            } else if (error.response?.status === 401) {
+                console.log('Error Code 401: Unauthorized Access');
+            } else {
+                console.log('Unkown Error');
+            }
         }
     };
 
     return (
-        <div className="imageRenderer">
-            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading...</p>
-            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Time Elapsed: {timeElapsed}</p>
-            <button onClick={processImages}>Process Images</button>
-            <div>
-                {processedImages.map((image, index) => (
-                    <img key={index} src={image} alt={`Processed ${index}`} />
-                ))}
-            </div>
-        </div>
+            <Form className="imageRenderer" onFinish={processImages}>
+                <Form.Item label="Album Name" name="albumName" className="albumField" rules={[{ required: true, message: 'Please input a title for your album!' }]}>
+                    <Input onChange={(e) => setAlbumname(e.target.value)} value={albumName}/>
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}}>
+                        Translate Images!
+                    </Button>
+                </Form.Item>
+                <Form.Item>
+                    <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading, Time Elapsed: {timeElapsed}</p>
+                </Form.Item>
+            </Form>
     );
 }
 async function alterImageForTesting(images) {

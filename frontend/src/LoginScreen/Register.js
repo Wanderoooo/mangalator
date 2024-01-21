@@ -4,6 +4,9 @@ import {faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './Register.css'
 import axios from 'axios';
+import { Form, Input, Button, Checkbox, message } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Paper } from "@mui/material";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -93,8 +96,9 @@ function RegisterPage() {
 
 
     return (
-        <div>
-            <section> 
+        
+        <section className="sectionContainer"> 
+            <Paper className="Paper">
                 <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <h1>Register</h1>
                 <form onSubmit={handleSubmit}>
@@ -110,6 +114,7 @@ function RegisterPage() {
                     <input 
                         type="text" 
                         id="username"
+                        className="input"
                         ref={userRef} 
                         autoComplete='off'
                         onChange={(e) => setUser(e.target.value)} 
@@ -138,6 +143,7 @@ function RegisterPage() {
                     <input 
                         type="password" 
                         id="password"
+                        className="input"
                         onChange={(e) => setPwd(e.target.value)} 
                         required
                         aria-invalid={validPwd ? "false" : "true"}
@@ -162,6 +168,7 @@ function RegisterPage() {
                     <input 
                         type="password" 
                         id="confirm_pwd"
+                        className="input"
                         onChange={(e) => setMatchPwd(e.target.value)} 
                         required
                         aria-invalid={validMatch ? "false" : "true"}
@@ -173,19 +180,16 @@ function RegisterPage() {
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Must match the previous password input field.
                     </p>
-                    <button disabled={!validName || !validPwd || !validMatch ? true : false}>
-                        Sign Up
+                    <button disabled={!validName || !validPwd || !validMatch ? true : false} className="button">
+                        Sign up
                     </button>
                     <p>
-                        Already Signed Up? <br />
-                        <span className="line">
-                            <Link to='/login'>Sign In</Link>
-                        </span>
+                        Already Signed Up? <Link to='/login'>Sign In</Link>
                     </p>
                 </form>
-
-            </section>
-        </div>
+            </Paper>
+        </section>
+        
     )
 }
 

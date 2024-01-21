@@ -80,7 +80,7 @@ def generate_unique_string(length=10):
     return unique_string
 
 # returns a list of unique paths given a list of base64 strings.
-async def cook(files: List[UploadFile] = File(...)):
+async def cook(files):
     # Save the uploaded image to the upload directory (optional)
 
     dir = generate_unique_string()
@@ -91,15 +91,20 @@ async def cook(files: List[UploadFile] = File(...)):
 
     for file in files:
         # Generate a unique filename for each image
-        unique_filename = generate_unique_string() + ".jpg"
+        unique_filename = generate_unique_string() + ".png"
         image_path = os.path.join(file_path, unique_filename)
-
-        # Save the uploaded image as JPEG
-        base64_data = file.split(",")[1]
-        image_data = base64.b64decode(base64_data)
-        image = Image.open(BytesIO(image_data))
-        image.save(image_path)
-        images.append(unique_filename)      
+        
+        try:
+            # Save the uploaded image as JPEG
+            base64_data = file.split(",")[1]
+            image_data = base64.b64decode(base64_data)
+            image = Image.open(BytesIO(image_data))
+            image.save(image_path)
+            images.append(unique_filename)
+        except Exception as e:
+            raise HTTPException(status_code=404, detail={e})
+            
+          
 
     translator_command = f"-m manga_translator -v --translator=google -l ENG -i {file_path}"
 
@@ -107,10 +112,12 @@ async def cook(files: List[UploadFile] = File(...)):
     command = [sys.executable] + translator_command.split()
 
     # Run the command and wait for it to finish
+    os.chdir("../manga-image-translator")
     try:
         result = subprocess.run(command, check=True)
     except:
         print("ok dont care")
+    os.chdir("../api")
     
     directory_path = file_path + "-translated"
     # file_list = os.listdir(directory_path)
@@ -131,13 +138,13 @@ async def add(request: Request):
         payload = await request.json()
         collection = db.mangas
         images = payload["image"]
-
-        translatedImages = await cook(payload)
-        for image in translatedImages:
-            collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
-        return {"translatedBase64s": translatedImages}
+        translatedImages = await cook(images)
+        if (payload["key"]):
+            for image in translatedImages:
+                collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
+        return {"translated": translatedImages, "name": payload["name"]}
     except Exception as e:
-        raise HTTPException(status_code=404, detail="image translate failed")
+        raise HTTPException(status_code=404, detail=f"Error!!!: {e}")
     
 
 # payload: {"key", "name"}
@@ -210,3 +217,4 @@ async def root():
     
     
 #     return {"image path": image_binary}
+
