@@ -80,7 +80,7 @@ def generate_unique_string(length=10):
     return unique_string
 
 # returns a list of unique paths given a list of base64 strings.
-async def cook(files: List[UploadFile] = File(...)):
+async def cook(files: List[UploadFile]):
     # Save the uploaded image to the upload directory (optional)
 
     dir = generate_unique_string()
@@ -107,10 +107,12 @@ async def cook(files: List[UploadFile] = File(...)):
     command = [sys.executable] + translator_command.split()
 
     # Run the command and wait for it to finish
+    os.chdir("../manga-image-translator")
     try:
         result = subprocess.run(command, check=True)
     except:
         print("ok dont care")
+    os.chdir("../api")
     
     directory_path = file_path + "-translated"
     # file_list = os.listdir(directory_path)
@@ -131,13 +133,12 @@ async def add(request: Request):
         payload = await request.json()
         collection = db.mangas
         images = payload["image"]
-
-        translatedImages = await cook(payload)
+        translatedImages = await cook(images)
         for image in translatedImages:
             collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
         return {"translatedBase64s": translatedImages}
     except Exception as e:
-        raise HTTPException(status_code=404, detail="image translate failed")
+        raise HTTPException(status_code=404, detail=(e))
     
 
 # payload: {"key", "name"}
@@ -210,3 +211,4 @@ async def root():
     
     
 #     return {"image path": image_binary}
+
