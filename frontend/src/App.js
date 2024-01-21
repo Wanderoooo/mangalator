@@ -17,6 +17,7 @@ import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
 
 import { Layout, Menu } from 'antd';
+import MangaReader from "./MangaReader/MangaReader";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -46,17 +47,17 @@ function App() {
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
           </Menu.Item>
-          <Menu.Item key="account">
-            <img className='icon' src={user} alt='user'></img>
-            <Link to="/account" className='sider-text'>Profile</Link>
-          </Menu.Item>
           <Menu.Item key="read">
             <img className='icon' src={bookopen} alt='read'></img>
-            <Link to="/account" className='sider-text'>Read</Link>
+            <Link to="/reader" className='sider-text'>Read</Link>
           </Menu.Item>
           <Menu.Item key="upload">
             <img className='icon' src={upload} alt='upload'></img>
             <Link to="/translator" className='sider-text'>Upload</Link>
+          </Menu.Item>
+          <Menu.Item key="account">
+            <img className='icon' src={user} alt='user'></img>
+            <Link to="/" className='sider-text'>Sign in/Register</Link>
           </Menu.Item>
         </Menu>
         </Sider>
@@ -64,10 +65,11 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountScreen />} />
-              <Route path="/translator" element={<MangaPage setCurrentKey={setCurrentKey}/>} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/translator" element={<MangaPage />} />
+              <Route path="/login" component={<LoginPage />} />
+              <Route path="/register" component={<RegisterPage />} />
+              <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>
         </Content>
