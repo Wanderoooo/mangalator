@@ -14,7 +14,7 @@ root.render(
     <AuthProvider>
       <KeyProvider>
         <MangaContextProvider>
-          <AccountCollectionContext> //For testing without Authentication;
+          <AccountCollectionContext> 
             <App />
           </AccountCollectionContext>
         </MangaContextProvider>
