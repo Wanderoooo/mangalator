@@ -28,8 +28,9 @@ function ImageGrid() {
   
   useEffect(() => {
     setTestingData(accountContext);
+    console.log(accountContext)
     //setTestingData(sanity);
-  }, [])
+  }, [accountContext])
   
  
 
