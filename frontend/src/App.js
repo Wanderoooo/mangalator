@@ -15,7 +15,7 @@ import MangaPage from './MangaPage/MangaPage';
 import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
 
-import { Layout } from 'antd';
+import { Layout, Menu } from 'antd';
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -124,7 +124,7 @@ function App() {
   // );
 
   return (
-    <Layout>
+    <Layout className='full-height'>
       <Header className='topbar'>
         <img
           loading="lazy"
@@ -163,7 +163,6 @@ function App() {
           </div>
         </Router>
         </Content>
-        <Sider>right sidebar</Sider>
       </Layout>
       <Footer>footer</Footer>
     </Layout>
