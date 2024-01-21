@@ -1,33 +1,46 @@
 import React, { useState, useEffect } from "react";
 import ImageRenderer from './ImageRenderer';
-
+import { Upload, Button } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
 function UploadPage({setCurrentKey}) {
   const [images, setImages] = useState([]);
   
+  useEffect(() => {
+    if (new Set(images).size !== images.length) {
+      const uniqueImages = [...new Set(images)];
+      setImages(uniqueImages);
+    }
+  }, [images]);
 
-  const handleImageUpload = event => {
-    let files = event.target.files;
-    let imagesArray = [...images];
-
-    for (let i = 0; i < files.length; i++) {
-      let reader = new FileReader();
-
+  const handleImagesUpload = ({ fileList }) => {
+    // Loop through all the files
+    for (let i = 0; i < fileList.length; i++) {
+      let file = fileList[i].originFileObj; // Get the actual File object
+      const reader = new FileReader();
+  
       reader.onloadend = () => {
-        imagesArray.push(reader.result);
-        setImages(imagesArray);
+        setImages(prevImages => [...prevImages, reader.result]);
       };
-
-      reader.readAsDataURL(files[i]);
-      
+  
+      reader.readAsDataURL(file);
     }
   };
+  
 
   console.log(images);
 
   return (
     <div className="MangaRenderer">
-      <input type="file" accept=".png, .jpg, .jpeg" multiple onChange={handleImageUpload} title="Input files here" placeholder="ohueidjsk" />
+      <Upload.Dragger name="files" action="/upload.do" multiple={true} onChange={handleImagesUpload}>
+        <p className="ant-upload-drag-icon">
+          <UploadOutlined />
+        </p>
+        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+        <p className="ant-upload-hint">
+          Support for a single or bulk upload. Accepted types: PNG, JPG, JPEG
+        </p>
+      </Upload.Dragger>
       <ImageRenderer imgs={images} setCurrentKey={setCurrentKey}/>
     </div>
   );
