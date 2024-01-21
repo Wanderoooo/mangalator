@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-function ImageProcessor( {imgs} ) {
+function ImageProcessor( {imgs, setCurrentKey} ) {
     const [images, setImages] = useState(imgs);
     const [processedImages, setProcessedImages] = useState([]);
+    const navigate = useNavigate();
 
     const processImages = async () => {
         try {
@@ -11,6 +13,10 @@ function ImageProcessor( {imgs} ) {
             //const response = await axios.post('https://your-api-url.com/process', images);
             let newImages = await alterImageForTesting(imgs);
             setProcessedImages(newImages);
+            if (newImages.length > 0) {
+                setCurrentKey('read');
+                navigate('/account');
+            }
         } catch (error) {
             console.error('Error processing images:', error);
         }

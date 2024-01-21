@@ -13,3 +13,9 @@
 .offscreen {
     display: none;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
