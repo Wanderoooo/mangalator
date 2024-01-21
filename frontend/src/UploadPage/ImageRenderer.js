@@ -9,7 +9,7 @@ import { Button, Form, Input } from 'antd';
     import { Paper } from '@mui/material';
 import { AccountCollection } from '../context/AccountCollectionContext';
 
-function ImageProcessor( {imgs} ) {
+function ImageProcessor( {imgs, userKey} ) {
     const [images, setImages] = useState(imgs);
     const [timeElapsed, setTimeElapsed] = useState(1);
     const [processedImages, setProcessedImages] = useState([]);
@@ -41,8 +41,8 @@ function ImageProcessor( {imgs} ) {
             console.log(imgs);
             console.log(albumName);
             console.log("Images: " + imgs);
-            console.log(auth.user);
-            const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": "user1", "name": albumName});
+            console.log(userKey);
+            const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": userKey, "name": albumName});
             //let newImages = await alterImageForTesting(imgs);
             const paths = response?.data.translated;
             console.log(paths);

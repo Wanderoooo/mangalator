@@ -14,7 +14,7 @@ root.render(
     <AuthProvider>
       <KeyProvider>
         <MangaContextProvider>
-          <AccountCollectionContext>
+          <AccountCollectionContext> 
             <App />
           </AccountCollectionContext>
         </MangaContextProvider>
