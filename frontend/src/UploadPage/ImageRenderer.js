@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
+
 import { Button, Form, Input } from 'antd';
     import { Paper } from '@mui/material';
+import { AccountCollection } from '../context/AccountCollectionContext';
 
 function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
@@ -19,6 +21,8 @@ function ImageProcessor( {imgs} ) {
 
     const [albumName, setAlbumname ] = useState('');
 
+
+    const { setAccountContext } = useContext(AccountCollection);
 
     useEffect(() => {
         let interval;
@@ -46,6 +50,7 @@ function ImageProcessor( {imgs} ) {
             setLoading(false);
             setProcessedImages(response?.data);
             if (processedImages.length > 0 && !loading) {
+                setAccountContext(processedImages)
                 setCurrentKey('account');
                 navigate('/account');
             }
