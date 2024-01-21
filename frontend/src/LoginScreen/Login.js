@@ -49,7 +49,7 @@ function Login({userKey, setUserKey}) {
             } else {
                 setErrMsg('Login Failed');
             }
-            errRef.current.focus();
+            errRef?.current.focus();
         }
     }
 

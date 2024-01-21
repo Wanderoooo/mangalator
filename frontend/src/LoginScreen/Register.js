@@ -92,7 +92,7 @@ function RegisterPage({userKey, setUserKey}) {
             } else {
                 setErrMsg('Registration Failed')
             }
-            errRef.current.focus();
+            errRef?.current.focus();
         }
 
     }
