@@ -20,14 +20,12 @@
     width: 500px;  /* Adjust as needed */
     height: 300px; /* Adjust as needed */
     margin: auto;
-    
+
   }
 
   .sectionContainer {
     display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  top: 50%;
-  bottom: 50%;
   }
   
