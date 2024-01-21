@@ -3,7 +3,6 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 import shutil
 import requests
-import httpx
 import base64
 from PIL import Image
 from typing import List
