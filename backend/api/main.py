@@ -22,6 +22,7 @@ import secrets
 import sys
 from io import BytesIO
 
+
 app = FastAPI()
 counter = 1
 key = "nwhacks" # put in .env file
@@ -121,9 +122,16 @@ async def cook(files):
     
     directory_path = file_path + "-translated"
     # file_list = os.listdir(directory_path)
-
+        
     for i in range(0, len(images)):
-        images[i] = directory_path + "/" + images[i] 
+        path = directory_path + "/" + images[i] 
+        with open(path, "rb") as image_file:
+            # Read the binary data of the image
+            binary_data = image_file.read()
+            # Convert binary data to base64-encoded string
+            base64_string = base64.b64encode(binary_data).decode("utf-8") 
+            
+            images[i] =  "data:image/png;base64," + base64_string
 
     # Iterate over the files
 
@@ -136,12 +144,12 @@ async def add(request: Request):
     get_database()
     try:
         payload = await request.json()
-        collection = db.mangas
+        # collection = db.mangas
         images = payload["image"]
         translatedImages = await cook(images)
-        if (payload["key"]):
-            for image in translatedImages:
-                collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
+        # if (payload["key"]):
+        #     for image in translatedImages:
+        #         collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
         return {"translated": translatedImages, "name": payload["name"]}
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Error!!!: {e}")

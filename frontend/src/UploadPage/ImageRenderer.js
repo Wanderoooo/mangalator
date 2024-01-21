@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
+import amogus from '../uploads/AkIxaTUEBJ-translated/5VCFXmMbeq.png'
 
 import { Button, Form, Input } from 'antd';
     import { Paper } from '@mui/material';
@@ -47,13 +48,29 @@ function ImageProcessor( {imgs} ) {
             console.log(auth.user);
             const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": "user1", "name": albumName});
             //let newImages = await alterImageForTesting(imgs);
-            setLoading(false);
-            setProcessedImages(response?.data.translated);
-            console.log("Number of items in response" + response?.data);
-            
-            setAccountContext(response?.data)
-            setCurrentKey('account');
-            navigate('/account');
+            const paths = response?.data.translated;
+            console.log(paths);
+            try {
+                // let promises = paths.map(async (path) => {
+                //   const fullPath = '../' + path;
+                //   console.log(fullPath);
+                //   const module = await import(fullPath);
+                //   return module.default;
+                // });
+                // console.log("The map itself actually finished");
+              
+                // resultImages = await Promise.all(promises);
+              
+                setLoading(false);
+                if (paths?.length > 0) {
+                    console.log("Jumping to the next page");
+                  setAccountContext([{name: response?.data.name, data: paths}])
+                  setCurrentKey('account');
+                  navigate('/account');
+                }
+              } catch (error) {
+                console.log("Error caught, the map failed", error);
+              }
         } catch (error) {
             if (!error?.response) {
                 console.log('No Server Response');
@@ -79,6 +96,9 @@ function ImageProcessor( {imgs} ) {
                 </Form.Item>
                 <Form.Item>
                     <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading, Time Elapsed: {timeElapsed}</p>
+                </Form.Item>
+                <Form.Item>
+                    <img src={amogus}/>
                 </Form.Item>
             </Form>
     );
