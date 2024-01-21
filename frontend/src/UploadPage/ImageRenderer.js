@@ -48,12 +48,12 @@ function ImageProcessor( {imgs} ) {
             const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": "user1", "name": albumName});
             //let newImages = await alterImageForTesting(imgs);
             setLoading(false);
-            setProcessedImages(response?.data);
-            if (processedImages.length > 0 && !loading) {
-                setAccountContext(processedImages)
-                setCurrentKey('account');
-                navigate('/account');
-            }
+            setProcessedImages(response?.data.translated);
+            console.log("Number of items in response" + response?.data);
+            
+            setAccountContext(response?.data)
+            setCurrentKey('account');
+            navigate('/account');
         } catch (error) {
             if (!error?.response) {
                 console.log('No Server Response');
@@ -79,13 +79,6 @@ function ImageProcessor( {imgs} ) {
                 </Form.Item>
                 <Form.Item>
                     <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading, Time Elapsed: {timeElapsed}</p>
-                </Form.Item>
-                <Form.Item>
-                    <div>
-                        {processedImages.map((image, index) => (
-                            <img key={index} src={image} alt={`Processed ${index}`} />
-                        ))}
-                    </div>
                 </Form.Item>
             </Form>
     );

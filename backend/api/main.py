@@ -142,7 +142,7 @@ async def add(request: Request):
         if (payload["key"]):
             for image in translatedImages:
                 collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
-        return {"translated": translatedImages}
+        return {"translated": translatedImages, "name": payload["name"]}
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Error!!!: {e}")
     
