@@ -13,7 +13,7 @@ function ImageProcessor( {imgs} ) {
     const throbRef = useRef();
     const navigate = useNavigate();
     const { currentKey, setCurrentKey } = useContext(KeyContext);
-    const { auth } = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
 
 
     useEffect(() => {
