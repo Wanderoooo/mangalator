@@ -17,6 +17,7 @@ import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
 
 import { Layout, Menu } from 'antd';
+import MangaReader from "./MangaReader/MangaReader";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -47,7 +48,7 @@ function App() {
           </Menu.Item>
           <Menu.Item key="read">
             <img className='icon' src={bookopen} alt='read'></img>
-            <Link to="/account" className='sider-text'>Read</Link>
+            <Link to="/reader" className='sider-text'>Read</Link>
           </Menu.Item>
           <Menu.Item key="upload">
             <img className='icon' src={upload} alt='upload'></img>
@@ -63,6 +64,7 @@ function App() {
               <Route path="/translator" element={<MangaPage />} />
               <Route path="/login" component={<LoginPage />} />
               <Route path="/register" component={<RegisterPage />} />
+              <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>
         </Content>

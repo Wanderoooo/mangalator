@@ -1,0 +1,27 @@
+.carousel-container img {
+    max-height: 300px;
+    width: auto;
+    object-fit: contain;
+  }
+  
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+}
+  
+.carousel-button {
+    margin: 0 10px;
+}
+
+.carousel-button-left {
+    order: 1;
+}
+
+.carousel-button-right {
+    order: 3;
+}
+
+.carousel {
+    order: 2;
+}
