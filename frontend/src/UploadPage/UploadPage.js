@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageRenderer from './ImageRenderer';
 import { Upload, Button } from 'antd';
+import { Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 function UploadPage({setCurrentKey}) {
@@ -32,6 +33,7 @@ function UploadPage({setCurrentKey}) {
 
   return (
     <div className="MangaRenderer">
+      <Typography.Title level={2}>Upload raw images here; we take care of the rest</Typography.Title>
       <Upload.Dragger name="files" action="/upload.do" multiple={true} onChange={handleImagesUpload}>
         <p className="ant-upload-drag-icon">
           <UploadOutlined />
