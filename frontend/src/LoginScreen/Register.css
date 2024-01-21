@@ -1,0 +1,21 @@
+.hide {
+    display: none;
+}
+
+.valid {
+    display: inline;
+}
+
+.invalid {
+    display: inline;
+}
+
+.offscreen {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  

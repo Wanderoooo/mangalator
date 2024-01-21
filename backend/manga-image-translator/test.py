@@ -14,6 +14,7 @@ import os
 import secrets
 import sys
 from io import BytesIO
+import uvicorn
 
 app = FastAPI()
 
@@ -109,7 +110,7 @@ async def cook(files: List[UploadFile] = File(...)):
 
 
 def main():
-    import uvicorn
+    
 
     # Run the FastAPI app using Uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)

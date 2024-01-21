@@ -33,7 +33,7 @@ function Login() {
             const response = await axios.post('https://your-api-url.com/process',
                 JSON.stringify({username: user, password: pwd}),
                 {
-                    headers: { 'Content-Type': 'application.json' },
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
@@ -49,13 +49,14 @@ function Login() {
         } catch (error) {
             if (!error?.response) {
                 setErrMsg('No Server Response');
-            } else if (error.err.response?.status === 400) {
+            } else if (error.response?.status === 400) {
                 setErrMsg('Missing Username or Password');
-            } else if (error.err.response?.status === 401) {
+            } else if (error.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
                 setErrMsg('Login Failed');
             }
+            errRef.current.focus();
         }
     }
 
