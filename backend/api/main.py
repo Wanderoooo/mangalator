@@ -41,10 +41,9 @@ def get_database():
         
     return db
 
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -198,12 +197,17 @@ async def dashboard(request: Request):
     dashboardArray = []
     try:
         payload = await request.json()
+        print("after payload")
         collection = db.mangas
+        print("after collection")
         names = collection.find({"key": payload["key"]}).distinct("name")
+        print("after names", names)
         for name in names:
-            thumbnail = collection.find({"name": name}).sort([("_id", -1)]).limit(1)
-            image = path_to_64string( thumbnail.get("image"))
-            dashboardArray.append({"name":name, "image": image})
+            imageArray = collection.find({"name": name}).sort([("_id", -1)])
+            imageArray64 = []
+            for image in imageArray:
+                imageArray64.append(path_to_64string(image.get("image")))
+            dashboardArray.append({"name":name, "data": imageArray64})
         return dashboardArray
     except Exception as e:
         raise HTTPException(status_code=404, detail="dashboard render failed")

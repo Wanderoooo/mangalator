@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import "./CollectionElement.css"
 import { MangaContext } from "../context/MangaReaderContext";
 import Paper from '@mui/material/Paper';
-import "./CollectionElement.js"
+import "./CollectionElement.css"
 
 function CollectionElement({collectionInfo}) {
     const {name, data} = collectionInfo;
@@ -30,7 +30,6 @@ function CollectionElement({collectionInfo}) {
                 <h2 className="AlbumTitle">{name}</h2>
                 <img className="coverImage" key="coverImage" src={data[0]} alt="" onClick={handleImageClick} /> 
               </div>            
-              
             </Paper>
         </TouchableOpacity>
     );

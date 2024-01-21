@@ -7,8 +7,9 @@ import img7035 from '../assets/IMG_7035.PNG';
 import img7036 from '../assets/IMG_7036.PNG';
 import testmanga from '../assets/testmanga.png';
 import { AccountCollection } from '../context/AccountCollectionContext';
+import { useForkRef } from '@mui/material';
 
-function ImageGrid() {
+function ImageGrid({userKey}) {
   const [collectionData, setCollectionData] = useState([]);
   const [testingData, setTestingData] = useState();
   const { auth } = useContext(AuthContext);
@@ -41,7 +42,8 @@ function ImageGrid() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('Fetch Collection API CALL', JSON.stringify({key: auth.accessToken})); 
+        const response = await axios.get('http://localhost:8000/dashboard', {"key": userKey}); 
+        console.log(response?.data)
         setCollectionData(response?.data);
       } catch (error) {
         if (!error?.response) {

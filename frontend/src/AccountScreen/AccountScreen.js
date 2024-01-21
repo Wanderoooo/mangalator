@@ -5,7 +5,7 @@ function AccountScreen({userKey}) {
     return (
         <div className="imageHistoryContainer">
             <h1>Collection History</h1>
-            <ImageGrid />
+            <ImageGrid userKey={userKey}/>
         </div>
     );
 }

@@ -1,2 +1,3 @@
 .venv
 api/.env.local
+uploads

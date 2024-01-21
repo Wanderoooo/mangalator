@@ -18,10 +18,7 @@ function ImageProcessor( {imgs} ) {
     const navigate = useNavigate();
     const { currentKey, setCurrentKey } = useContext(KeyContext);
     const { auth, setAuth } = useContext(AuthContext);
-
     const [albumName, setAlbumname ] = useState('');
-
-
     const { setAccountContext } = useContext(AccountCollection);
 
     useEffect(() => {
