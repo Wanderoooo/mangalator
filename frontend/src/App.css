@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'AnimeAce';  /* Define a name for the font */
+  src: url('./assets/animeace.ttf');  /* Point to the font file */
+}
+
 .ant-menu-item-selected {
   background-color: #b8e0b1 !important; /* Change to your desired color */
 }
@@ -43,8 +48,19 @@
   margin: 20px;
 }
 
+.content-box {
+  background-color: #f8f8f8;
+}
+
 .full-height {
   height: 100vh !important;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
 .logo {
@@ -68,6 +84,11 @@
 .sider {
   background-color: #c9e4ca !important; 
   scrollbar-highlight-color: #000000 !important;
+}
+
+.sider-text {
+  font-family: 'AnimeAce', Arial, sans-serif;
+  font-size: 14px;
 }
 
 

@@ -4,7 +4,6 @@ function HomeScreen() {
     return (
         <div>
             <Login/>
-
         </div>
     );
 }
