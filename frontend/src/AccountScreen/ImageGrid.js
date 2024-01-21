@@ -42,7 +42,7 @@ function ImageGrid({userKey}) {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/dashboard', {"key": userKey}); 
+        const response = await axios.get(`http://localhost:8000/dashboard/${userKey}`)
         console.log(response?.data)
         setCollectionData(response?.data);
       } catch (error) {
@@ -67,7 +67,7 @@ function ImageGrid({userKey}) {
         <p ref={errRef} className={errMsg? "onscreen" : "offscreen"} aria-live="assertive">{errMsg}</p>
         <p className={collectionData.length > 0? "onscreen" : "offscreen"} aria-live="assertive">Choose A Collection First!</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
-      {testingData?.map((collectionInfo, index) => (
+      {collectionData?.map((collectionInfo, index) => (
         <CollectionElement key={index} collectionInfo={collectionInfo}/>
       ))}
     </div>

@@ -4,7 +4,7 @@ import { Upload, Button } from 'antd';
 import { Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-function UploadPage({setCurrentKey}) {
+function UploadPage({setCurrentKey, userKey}) {
   const [images, setImages] = useState([]);
   
   useEffect(() => {
@@ -43,7 +43,7 @@ function UploadPage({setCurrentKey}) {
           Support for a single or bulk upload. Accepted types: PNG, JPG, JPEG
         </p>
       </Upload.Dragger>
-      <ImageRenderer imgs={images} setCurrentKey={setCurrentKey}/>
+      <ImageRenderer imgs={images} setCurrentKey={setCurrentKey} userKey={userKey}/>
     </div>
   );
 }

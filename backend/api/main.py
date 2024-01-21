@@ -191,17 +191,15 @@ async def display(request: Request):
 
 # payload: {"key": unique string user key}
 # return: [{"name": manga name, "image": thumbnail path}]
-@app.get("/dashboard")
-async def dashboard(request: Request):
+@app.get("/dashboard/{key}")
+async def dashboard(key: str):
     get_database()
     dashboardArray = []
     try:
-        payload = await request.json()
         print("after payload")
         collection = db.mangas
         print("after collection")
-        names = collection.find({"key": payload["key"]}).distinct("name")
-        print("after names", names)
+        names = collection.find({"key": key}).distinct("name")
         for name in names:
             imageArray = collection.find({"name": name}).sort([("_id", -1)])
             imageArray64 = []

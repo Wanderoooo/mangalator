@@ -5,6 +5,7 @@ import { Form, Input, Button, Typography, Alert } from 'antd';
 import './Login.css'; // Import the CSS file
 import AuthContext from '../context/AuthProvider';
 import Paper from '@mui/material/Paper';
+import { KeyContext } from '../context/KeyContext';
 const { Title } = Typography;
 
 
@@ -18,12 +19,18 @@ function Login({userKey, setUserKey}) {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const { setCurrentKey } = useContext(KeyContext);
+
     const navigate = useNavigate();
 
 
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
+
+    const handleLogOut = () => {
+        setUserKey(null);
+    }
 
     const handleSubmit = async (e) => {
         //e.preventDefault();
@@ -32,6 +39,7 @@ function Login({userKey, setUserKey}) {
             if (response?.data) {
                 setUserKey(user);
                 setSuccess(true);
+                setCurrentKey('upload');
                 navigate('/translator');
                 console.log("User succesfully logged in");
             } else {
@@ -82,7 +90,7 @@ function Login({userKey, setUserKey}) {
             </div> : 
             <div>
                 <h1>Welcome, {userKey}</h1>
-                <Button type="primary" onClick={() => setUserKey(null)}>Log out</Button>
+                <Button type="primary" onClick={handleLogOut}>Log out</Button>
             </div>}
             </Paper>
             
