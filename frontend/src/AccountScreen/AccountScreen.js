@@ -1,5 +1,5 @@
 import ImageGrid from "./ImageGrid";
-import "./ImageGrid.css"
+//import "./ImageGrid.css"
 function AccountScreen() {
     return (
         <div className="imageHistoryContainer">

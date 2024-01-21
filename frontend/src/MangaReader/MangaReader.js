@@ -52,7 +52,7 @@ export default function MangaReader() {
             <p> Please Load A Collection First</p>
           ) : (
             <Flex style={{ flexDirection: 'row'}}>
-                <Flex style={{ flexDirection: 'row' }}>
+                {/* <Flex style={{ flexDirection: 'row' }}>
                     <Button className="carousel-button carousel-button-left" onClick={previous} icon={<LeftOutlined />} />
                     <Carousel ref={carouselRef} className="carousel">
                     {mangaData?.map((imgUrl, index) => (
@@ -62,7 +62,7 @@ export default function MangaReader() {
                     ))}
                     </Carousel>
                     <Button className="carousel-button carousel-button-right" onClick={next} icon={<RightOutlined />}/>
-                </Flex>
+                </Flex> */}
                 <Divider type="vertical" className="divider" />
                 <VerticalScroll images={mangaData} />
             </Flex>

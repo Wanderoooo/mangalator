@@ -5,6 +5,8 @@ import { KeyContext } from "../context/KeyContext";
 import { useNavigate } from "react-router";
 import "./CollectionElement.css"
 import { MangaContext } from "../context/MangaReaderContext";
+import Paper from '@mui/material/Paper';
+import "./CollectionElement.js"
 
 function CollectionElement({collectionInfo}) {
     const {name, data} = collectionInfo;
@@ -23,8 +25,13 @@ function CollectionElement({collectionInfo}) {
 
     return (
         <TouchableOpacity>
-            <h2>{name}</h2>
-            <img className="coverImage" key="coverImage" src={data[0]} alt="" onClick={handleImageClick} />
+            <Paper style={{ height: '600px' }}>
+              <div className="leftPadding">
+                <h2 className="AlbumTitle">{name}</h2>
+                <img className="coverImage" key="coverImage" src={data[0]} alt="" onClick={handleImageClick} /> 
+              </div>            
+              
+            </Paper>
         </TouchableOpacity>
     );
 }
