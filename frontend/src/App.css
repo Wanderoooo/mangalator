@@ -102,6 +102,8 @@
   background-color: #e2fdf8 !important;
   height: 65px;
   border: 1px solid #505050 !important;
+  display: flex;
+  flex-direction: row;
 }
 
 .underlay {
@@ -117,4 +119,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.mangalator {
+  display: inline-block;
+  margin-left: 30px;
+  height: 40px;
+  width: 100px;
+  float: left;
+  vertical-align: top;
+  margin-top: 0px;
 }

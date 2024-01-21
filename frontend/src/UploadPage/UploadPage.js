@@ -5,7 +5,7 @@ import { Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './UploadPage.css'
 
-function UploadPage({setCurrentKey}) {
+function UploadPage({setCurrentKey, userKey}) {
   const [images, setImages] = useState([]);
   const uniqueImages = Array.from(new Map(images.map(image => [image["src"], image])).values());
   console.log(uniqueImages);
