@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import './App.css';
-import ImageRenderer from './MangaPage/ImageRenderer';
+import ImageRenderer from './UploadPage/ImageRenderer';
 import mangalatorlogo from './assets/mangalatorlogo.png';
 import menu from './assets/menu.svg'
 import user from './assets/user.svg'
@@ -12,7 +12,7 @@ import home from './assets/home.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
 import AccountScreen from './AccountScreen/AccountScreen';
-import MangaPage from './MangaPage/MangaPage';
+import MangaPage from './UploadPage/UploadPage';
 import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
 
