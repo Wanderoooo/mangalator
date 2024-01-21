@@ -3,6 +3,24 @@ import base64
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import jwt
+import string
+import secrets
+import os
+import base64
+from PIL import Image
+from typing import List
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
+from pathlib import Path
+import base64
+from PIL import Image
+from typing import List
+import string
+import subprocess
+import os
+import secrets
+import sys
+from io import BytesIO
 
 app = FastAPI()
 counter = 1
@@ -54,6 +72,53 @@ async def signup(request: Request):
 #         return {"login success"}
 #     except Exception as e:
 #         return {"find failed!"}
+    
+def generate_unique_string(length=10):
+    characters = string.ascii_letters + string.digits
+    unique_string = ''.join(secrets.choice(characters) for _ in range(length))
+    return unique_string
+
+async def cook(files: List[UploadFile] = File(...)):
+    # Save the uploaded image to the upload directory (optional)
+
+    dir = generate_unique_string()
+    file_path = f"uploads/{dir}"
+    os.makedirs(file_path, exist_ok=True)
+
+    images = []
+
+    for file in files:
+        # Generate a unique filename for each image
+        unique_filename = generate_unique_string() + ".jpg"
+        image_path = os.path.join(file_path, unique_filename)
+
+        # Save the uploaded image as JPEG
+        base64_data = file.split(",")[1]
+        image_data = base64.b64decode(base64_data)
+        image = Image.open(BytesIO(image_data))
+        image.save(image_path)
+        images.append(unique_filename)      
+
+    translator_command = f"-m manga_translator -v --translator=google -l ENG -i {file_path}"
+
+    # Construct the command using the Python executable path
+    command = [sys.executable] + translator_command.split()
+
+    # Run the command and wait for it to finish
+    try:
+        result = subprocess.run(command, check=True)
+    except:
+        print("ok dont care")
+    
+    directory_path = file_path + "-translated"
+    # file_list = os.listdir(directory_path)
+
+    for i in range(0, len(images)):
+        images[i] = directory_path + "/" + images[i] 
+
+    # Iterate over the files
+
+    return images
 
 # payload: {"key": unique string user key, "image": base64, "name": manga collection name}
 # return: {"key", "image": image path, "name"?}
@@ -64,12 +129,15 @@ async def add(request: Request):
         payload = await request.json()
         collection = db.mangas
         images = payload["image"]
-        translatedImages = await hanson
+
+        translatedImages = await cook(payload)
         for image in translatedImages:
             collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
         return {"translatedBase64s": translatedImages}
     except Exception as e:
         raise HTTPException(status_code=404, detail="image translate failed")
+    
+
 
 # payload: {"key", "name"}
 # return: [{"image": path}]
