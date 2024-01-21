@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import AuthContext from '../context/AuthProvider';
 
-function Login() {
+function LoginPage() {
     const userRef = useRef();
     const errRef = useRef();
 
@@ -33,7 +33,7 @@ function Login() {
             const response = await axios.post('https://your-api-url.com/process',
                 JSON.stringify({username: user, password: pwd}),
                 {
-                    headers: { 'Content-Type': 'application.json' },
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
@@ -56,44 +56,48 @@ function Login() {
             } else {
                 setErrMsg('Login Failed');
             }
+            errRef.current.focus();
         }
     }
 
     //Steal the HTML and authentication from this video https://youtu.be/X3qyxo_UTR4?si=Evobd3HCobfdD1MU
     return (
-        <section>
-            <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input 
-                    type="text" 
-                    id="username"
-                    ref={userRef} 
-                    autoComplete='off'
-                    onChange={(e) => setUser(e.target.value)} 
-                    value={user} 
-                    required
-                />
-                <label htmlFor="password">Password:</label>
-                <input 
-                    type="password" 
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)} 
-                    value={pwd} 
-                    required
-                />
-                <button>Sign In</button>
-            </form>
-            <p>
-                <span className="line">
-                    <Link to="/register">Sign Up</Link>
-                </span>
-            </p>
+        <div>
+            <section>
+                <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h1>Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="username">Username:</label>
+                    <input 
+                        type="text" 
+                        id="username"
+                        ref={userRef} 
+                        autoComplete='off'
+                        onChange={(e) => setUser(e.target.value)} 
+                        value={user} 
+                        required
+                    />
+                    <label htmlFor="password">Password:</label>
+                    <input 
+                        type="password" 
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)} 
+                        value={pwd} 
+                        required
+                    />
+                    <button>Sign In</button>
+                </form>
+                <p>
+                    Need An Account? <br />
+                    <span className="line">
+                        <Link to='/register'>Sign Up</Link>
+                    </span>
+                </p>
+                
             
-        
-        </section>
+            </section>
+        </div>
     )
 }
 
-export default Login;
+export default LoginPage;
