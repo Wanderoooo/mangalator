@@ -25,7 +25,7 @@ function CollectionElement({collectionInfo}) {
 
     return (
         <TouchableOpacity>
-            <Paper style={{ height: '550px' }}>
+            <Paper style={{ height: '350px' }}>
               <div className="leftPadding">
                 <h2 className="AlbumTitle">{name}</h2>
                 <img className="coverImage" key="coverImage" src={data[0]} alt="" onClick={handleImageClick} /> 
