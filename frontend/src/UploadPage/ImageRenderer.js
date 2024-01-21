@@ -50,7 +50,15 @@ function ImageProcessor( {imgs} ) {
                 navigate('/account');
             }
         } catch (error) {
-            console.error('Error processing images:', error);
+            if (!error?.response) {
+                console.log('No Server Response');
+            } else if (error.response?.status === 400) {
+                console.log('Error Code 400: The server could not understand the request due to invalid syntax.');
+            } else if (error.response?.status === 401) {
+                console.log('Error Code 401: Unauthorized Access');
+            } else {
+                console.log('Unkown Error');
+            }
         }
     };
 
