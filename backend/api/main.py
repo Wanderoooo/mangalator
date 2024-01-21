@@ -22,6 +22,7 @@ import secrets
 import sys
 from io import BytesIO
 
+
 app = FastAPI()
 counter = 1
 key = "nwhacks" # put in .env file
@@ -40,10 +41,9 @@ def get_database():
         
     return db
 
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,28 +56,41 @@ async def signup(request: Request):
     try:
         payload = await request.json()
         collection = db.users
-        collection.insert_one({"key": payload["key"]})
-        return {"signup success"}
+        user = collection.find_one({'key': payload["key"]})
+        if user:
+            return True
+        collection.insert_one({'key': payload["key"]})
+        return True
     except Exception as e:
-        raise HTTPException(status_code=404, detail="user key signup failed")
+        return HTTPException(status_code=404, detail="signup failed")
 
 
-# @app.post("/login")
-# async def login(request: Request):
-#     get_database()
-#     try:
-#         payload = await request.json()
-#         collection = db.mangas
-#         collection.find({"key": payload["key"]})
-#         return {"login success"}
-#     except Exception as e:
-#         return {"find failed!"}
+@app.post("/login")
+async def login(request: Request):
+    get_database()
+    try:
+        payload = await request.json()
+        collection = db.users
+        user = collection.find_one({'key': payload["key"]})
+        if user:
+            return True
+        return False
+    except Exception as e:
+        return HTTPException(status_code=404, detail="login failed")
 
 # generates a random string id (10^10 chance it is not unique....)
 def generate_unique_string(length=10):
     characters = string.ascii_letters + string.digits
     unique_string = ''.join(secrets.choice(characters) for _ in range(length))
     return unique_string
+
+def path_to_64string(path):
+    with open(path, "rb") as image_file:
+        # Read the binary data of the image
+        binary_data = image_file.read()
+        # Convert binary data to base64-encoded string
+        base64_string = base64.b64encode(binary_data).decode("utf-8") 
+        return "data:image/png;base64," + base64_string
 
 # returns a list of unique paths given a list of base64 strings.
 async def cook(files):
@@ -106,7 +119,7 @@ async def cook(files):
             
           
 
-    translator_command = f"-m manga_translator -v --translator=google -l ENG -i {file_path}"
+    translator_command = f"-m manga_translator -v --translator=deepl --detection-size 2560 --manga2eng -l ENG -i {file_path}" 
 
     # Construct the command using the Python executable path
     command = [sys.executable] + translator_command.split()
@@ -121,9 +134,10 @@ async def cook(files):
     
     directory_path = file_path + "-translated"
     # file_list = os.listdir(directory_path)
-
+        
     for i in range(0, len(images)):
         images[i] = directory_path + "/" + images[i] 
+
 
     # Iterate over the files
 
@@ -138,10 +152,22 @@ async def add(request: Request):
         payload = await request.json()
         collection = db.mangas
         images = payload["image"]
-        translatedImages = await cook(images)
+        imagePaths = await cook(images)
+        translatedImages = []
+        for i in range(0, len(imagePaths)): 
+            path = imagePaths[i]    
+            with open(path, "rb") as image_file:
+                # Read the binary data of the image
+                binary_data = image_file.read()
+                # Convert binary data to base64-encoded string
+                base64_string = base64.b64encode(binary_data).decode("utf-8") 
+                
+                translatedImages.append("data:image/png;base64," + base64_string)
+                
         if (payload["key"]):
-            for image in translatedImages:
+            for image in imagePaths:
                 collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
+                
         return {"translated": translatedImages, "name": payload["name"]}
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Error!!!: {e}")
@@ -156,6 +182,9 @@ async def display(request: Request):
         payload = await request.json()
         collection = db.mangas
         pages = collection.find({"key": payload["key"], "name": payload["name"]})
+        for page in pages:
+            page["image"] = path_to_64string(page["image"])
+            
         return {"pages": pages}
     except Exception as e:
         raise HTTPException(status_code=404, detail="pages display failed")
@@ -168,12 +197,17 @@ async def dashboard(request: Request):
     dashboardArray = []
     try:
         payload = await request.json()
+        print("after payload")
         collection = db.mangas
+        print("after collection")
         names = collection.find({"key": payload["key"]}).distinct("name")
+        print("after names", names)
         for name in names:
-            thumbnail = collection.find({"name": name}).sort([("_id", -1)]).limit(1)
-            imagePath = thumbnail.get("image")
-            dashboardArray.append({"name":name, "image": imagePath})
+            imageArray = collection.find({"name": name}).sort([("_id", -1)])
+            imageArray64 = []
+            for image in imageArray:
+                imageArray64.append(path_to_64string(image.get("image")))
+            dashboardArray.append({"name":name, "data": imageArray64})
         return dashboardArray
     except Exception as e:
         raise HTTPException(status_code=404, detail="dashboard render failed")
