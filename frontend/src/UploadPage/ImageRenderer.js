@@ -5,7 +5,7 @@ import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
 import { Button, Form, Input } from 'antd';
-import { Paper } from '@mui/material';
+    import { Paper } from '@mui/material';
 
 function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
@@ -56,11 +56,11 @@ function ImageProcessor( {imgs} ) {
 
     return (
             <Form className="imageRenderer" onFinish={processImages}>
-                <Form.Item label="Album Name" className="albumField" rules={[{ required: true, message: 'Please input a title for your album!' }]}>
+                <Form.Item label="Album Name" name="albumName" className="albumField" rules={[{ required: true, message: 'Please input a title for your album!' }]}>
                     <Input onChange={(e) => setAlbumname(e.target.value)} value={albumName}/>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="button" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}}>
+                    <Button type="primary" htmlType="submit" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}}>
                         Translate Images!
                     </Button>
                 </Form.Item>
