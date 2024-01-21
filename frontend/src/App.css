@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'AnimeAce';  /* Define a name for the font */
+  src: url('./assets/animeace.ttf');  /* Point to the font file */
+}
+
+.ant-menu-item-selected {
+  background-color: #b8e0b1 !important; /* Change to your desired color */
+}
+
+
 .App {
   text-align: center;
 }
@@ -26,6 +36,79 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.content {
+  margin: 20px;
+}
+
+.content-box {
+  background-color: #f8f8f8;
+}
+
+.full-height {
+  height: 100vh !important;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.logo {
+  width: 47px;
+  height: 47px;
+  top: 9px;
+  left: 20px;
+}
+
+.menu {
+  z-index: 2;
+  left: 34px;
+  top: 34px;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+}
+
+.sider {
+  background-color: #c9e4ca !important; 
+  scrollbar-highlight-color: #000000 !important;
+}
+
+.sider-text {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+
+.rectangle {
+  width: 100%;
+  height: 122px;
+  background: #e2fdf8;
+}
+
+.topbar {
+  background-color: #e2fdf8 !important;
+  height: 65px;
+  border: 1px solid #505050 !important;
+}
+
+.underlay {
+  position: absolute;
+  z-index: 0;
+  top: 0px;
 }
 
 @keyframes App-logo-spin {

@@ -1,0 +1,14 @@
+.carousel {
+    width: 400px;
+    height: 900px;
+    object-fit: contain !important;
+}
+
+.cimg {
+    max-width: 100%;
+    max-height: 600px; 
+  }
+  
+.carousel-button {
+    margin: 0 10px;
+}
