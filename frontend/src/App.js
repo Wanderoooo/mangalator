@@ -62,8 +62,8 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" element={<LoginPage/>} />
-              <Route path="/register" element={<RegisterPage/>} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
             </Routes>
           </div>
         <div className="App">
