@@ -42,10 +42,6 @@ function App() {
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
           </Menu.Item>
-          <Menu.Item key="account">
-            <img className='icon' src={user} alt='user'></img>
-            <Link to="/account" className='sider-text'>Profile</Link>
-          </Menu.Item>
           <Menu.Item key="read">
             <img className='icon' src={bookopen} alt='read'></img>
             <Link to="/reader" className='sider-text'>Read</Link>
@@ -53,6 +49,10 @@ function App() {
           <Menu.Item key="upload">
             <img className='icon' src={upload} alt='upload'></img>
             <Link to="/translator" className='sider-text'>Upload</Link>
+          </Menu.Item>
+          <Menu.Item key="account">
+            <img className='icon' src={user} alt='user'></img>
+            <Link to="/" className='sider-text'>Sign in/Register</Link>
           </Menu.Item>
         </Menu>
         </Sider>
