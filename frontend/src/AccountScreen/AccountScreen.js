@@ -1,7 +1,12 @@
-function AccountPage() {
+import ImageGrid from "./ImageGrid";
+
+function AccountScreen() {
     return (
-        <p>AccountPage</p>
+        <div>
+            <h1>Image History</h1>
+            <ImageGrid />
+        </div>
     );
 }
 
-export default AccountPage;
+export default AccountScreen;

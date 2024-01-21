@@ -11,7 +11,7 @@ import bookopen from './assets/book-open.svg'
 import home from './assets/home.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
-import AccountPage from './AccountScreen/AccountScreen';
+import AccountScreen from './AccountScreen/AccountScreen';
 import MangaPage from './MangaPage/MangaPage';
 import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
@@ -59,7 +59,7 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account" element={<AccountScreen />} />
               <Route path="/translator" element={<MangaPage />} />
               <Route path="/login" component={<LoginPage />} />
               <Route path="/register" component={<RegisterPage />} />
