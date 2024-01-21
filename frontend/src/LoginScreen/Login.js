@@ -8,11 +8,10 @@ import Paper from '@mui/material/Paper';
 const { Title } = Typography;
 
 
-function Login() {
-    const userRef = useRef();
+function Login({userKey, setUserKey}) {
     const errRef = useRef();
 
-    const { setAuth } = useContext(AuthContext);
+    // const { setAuth } = useContext(AuthContext);
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
@@ -23,34 +22,24 @@ function Login() {
 
 
     useEffect(() => {
-        userRef.current.focus();
-    }, [])
-
-    useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
 
     const handleSubmit = async (e) => {
         //e.preventDefault();
         try {
-            console.log("TODO: HANDLE SUBMIT NEEDS API HELP")
-            const response = await axios.post('https://your-api-url.com/process',
-                JSON.stringify({username: user, password: pwd}),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log("Login response is:" + JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            setAuth({user, pwd, accessToken });
-            setUser('');
-            setPwd('');
-            
-            setSuccess(true);
-            navigate('/translator');
-            console.log("User succesfully logged in");
+            const response = await axios.post('http://localhost:8000/login', {"key": user});
+            if (response?.data) {
+                setUserKey(user);
+                setSuccess(true);
+                navigate('/translator');
+                console.log("User succesfully logged in");
+            } else {
+                // no user, sign up instead
+                console.log("no such user exists")
+            }
         } catch (error) {
+            console.log(error)
             if (!error?.response) {
                 setErrMsg('No Server Response');
             } else if (error.response?.status === 400) {
@@ -69,11 +58,14 @@ function Login() {
         <section className="sectionContainer">
             <Paper className="Paper">
                 
+            {!userKey ?
+            <div>
             <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
+            
             <Form onFinish={handleSubmit}>
                 <Form.Item label="Username" name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
-                <Input onChange={(e) => setUser(e.target.value)} value={user} ref={userRef} />
+                <Input onChange={(e) => setUser(e.target.value)} value={user} />
                 </Form.Item>
                 <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
                 <Input.Password onChange={(e) => setPwd(e.target.value)} value={pwd} />
@@ -87,6 +79,11 @@ function Login() {
                     Don't have an account yet? <Link to="/register">Sign Up</Link>
                 </span>
             </p>
+            </div> : 
+            <div>
+                <h1>Welcome, {userKey}</h1>
+                <Button type="primary" onClick={() => setUserKey(null)}>Log out</Button>
+            </div>}
             </Paper>
             
         

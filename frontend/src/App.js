@@ -29,6 +29,8 @@ function App() {
     setCurrentKey(e.key);
   };
 
+  const [userKey, setUserKey] = useState()
+
   return (
     <Layout className='full-height'>
       <Header className='topbar'>
@@ -48,18 +50,20 @@ function App() {
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
           </Menu.Item>
+          {userKey && 
           <Menu.Item key="read">
             <img className='icon' src={bookopen} alt='read'></img>
             <Link to="/reader" className='sider-text'>Read</Link>
-          </Menu.Item>
+          </Menu.Item>}
+          {userKey &&
           <Menu.Item key="upload">
             <img className='icon' src={upload} alt='upload'></img>
             <Link to="/translator" className='sider-text'>Upload</Link>
-          </Menu.Item>
-          <Menu.Item key="account">
+          </Menu.Item>}
+          {userKey && <Menu.Item key="account">
             <img className='icon' src={user} alt='user'></img>
             <Link to="/account" className='sider-text'>Account</Link>
-          </Menu.Item>
+          </Menu.Item>}
           <Menu.Item key="login">
             <img className='icon' src={login} alt='login'></img>
             <Link to="/login" className='sider-text'>Sign in/Register</Link>
@@ -70,10 +74,10 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountScreen />} />
+              <Route path="/account" element={<AccountScreen userKey={userKey}/>} />
               <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage setUserKey={setUserKey} userKey={userKey}/>} />
+              <Route path="/register" element={<RegisterPage setUserKey={setUserKey} userKey={userKey}/>} />
               <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>

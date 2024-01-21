@@ -6,12 +6,13 @@ import './Register.css'
 import axios from 'axios';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+
 import { Paper } from "@mui/material";
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-function RegisterPage() {
+function RegisterPage({userKey, setUserKey}) {
     const userRef = useRef();
     const errRef = useRef();
 
@@ -31,6 +32,8 @@ function RegisterPage() {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const navigate = useNavigate();
 
 
 
@@ -67,20 +70,20 @@ function RegisterPage() {
             return;
         }
         try {
-            const response = await axios.post('https://your-api-url.com/process',
-            JSON.stringify({username: user, password: pwd}),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+            const response = await axios.post('http://localhost:8000/signup', {"key": user});
+            if (response?.data) {
+                setUserKey(user);
+                setSuccess(true);
+                navigate('/translator');
+                console.log("User succesfully registered");
+            } else {
+                console.log("reg failed!")
+            }
 
             console.log(response.data);
             console.log(response.accessToken);
             setSuccess(true);
-            setUser('');
-            setPwd('');
-            setMatchPwd('');
+
         } catch (error) {
             if (!error?.response) {
                 setErrMsg('No Server Response');

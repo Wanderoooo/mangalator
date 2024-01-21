@@ -57,22 +57,27 @@ async def signup(request: Request):
     try:
         payload = await request.json()
         collection = db.users
-        collection.insert_one({"key": payload["key"]})
-        return {"signup success"}
+        user = collection.find_one({'key': payload["key"]})
+        if user:
+            return True
+        collection.insert_one({'key': payload["key"]})
+        return True
     except Exception as e:
-        raise HTTPException(status_code=404, detail="user key signup failed")
+        return HTTPException(status_code=404, detail="signup failed")
 
 
-# @app.post("/login")
-# async def login(request: Request):
-#     get_database()
-#     try:
-#         payload = await request.json()
-#         collection = db.mangas
-#         collection.find({"key": payload["key"]})
-#         return {"login success"}
-#     except Exception as e:
-#         return {"find failed!"}
+@app.post("/login")
+async def login(request: Request):
+    get_database()
+    try:
+        payload = await request.json()
+        collection = db.users
+        user = collection.find_one({'key': payload["key"]})
+        if user:
+            return True
+        return False
+    except Exception as e:
+        return HTTPException(status_code=404, detail="login failed")
 
 # generates a random string id (10^10 chance it is not unique....)
 def generate_unique_string(length=10):
