@@ -1,27 +1,14 @@
-.carousel-container img {
-    max-height: 300px;
-    width: auto;
-    object-fit: contain;
-  }
-  
+.carousel {
+    max-width: 400px;
+    max-height: 900px;
+    object-fit: contain !important;
+}
 
-.carousel-container {
-    display: flex;
-    align-items: center;
+.cimg {
+    max-width: 100%; /* adjust as needed */
+    max-height: 100%; /* adjust as needed */
 }
   
 .carousel-button {
     margin: 0 10px;
-}
-
-.carousel-button-left {
-    order: 1;
-}
-
-.carousel-button-right {
-    order: 3;
-}
-
-.carousel {
-    order: 2;
 }

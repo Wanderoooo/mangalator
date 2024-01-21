@@ -3,6 +3,8 @@ import { Carousel, Button } from 'antd';
 import mangalatorlogo from '../assets/mangalatorlogo.png';
 import testmanga from '../assets/testmanga.png';
 import './MangaReader.css';
+import { Flex } from 'antd';
+
 
 export default function MangaReader(props) {
     const carouselRef = useRef();
@@ -16,20 +18,20 @@ export default function MangaReader(props) {
     }
   
     return (
-      <div className="carousel-container">
+      <Flex style={{ flexDirection: 'row' }}>
         <Button className="carousel-button carousel-button-left" onClick={previous}>Previous</Button>
         <Carousel ref={carouselRef} className="carousel">
           <div>
-            <img src={testmanga} alt="lgo" />
+            <img src={testmanga} alt="lgo" className='cimg' />
           </div>
           <div>
-            <img src={mangalatorlogo} alt="po" />
+            <img src={mangalatorlogo} alt="po" className='cimg' />
           </div>
           <div>
-            <img src={mangalatorlogo} alt="w" className='img' />
+            <img src={mangalatorlogo} alt="w" className='cimg' />
           </div>
         </Carousel>
         <Button className="carousel-button carousel-button-right" onClick={next}>Next</Button>
-      </div>
+      </Flex>
     );
   }
