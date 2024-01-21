@@ -1138,6 +1138,12 @@ class MangaTranslatorAPI(MangaTranslator):
             nonlocal run_until_state
             run_until_state = 'rendering'
             return await self.err_handling(self.run_translate, req, self.format_translate)
+        
+        # @routes.post("/process")
+        # async def process_api(req):
+        #     nonlocal run_until_state
+        #     run_until_state = 'rendering'
+        #     return await self.process(req)
 
         @routes.post("/colorize_translate")
         async def colorize_translate_api(req):
@@ -1155,8 +1161,53 @@ class MangaTranslatorAPI(MangaTranslator):
 
     async def run_translate(self, translation_params, img):
         return await self.translate(img, translation_params)
+    
+    # async def process(self, req):
+    #     global FORMAT
+    #     x = await handle_post(request)
+    #     if isinstance(x, tuple):
+    #         img, size, selected_translator, target_language, detector, direction = x
+    #     else:
+    #         return x
+    #     task_id = f'{phash(img, hash_size = 16)}-{size}-{selected_translator}-{target_language}-{detector}-{direction}'
+    #     print(f'New `run` task {task_id}')
+    #     if os.path.exists(f'result/{task_id}/final.{FORMAT}'):
+    #         # Add a console output prompt to avoid the console from appearing to be stuck without execution when the translated image is hit consecutively.
+    #         print(f'Using cached result for {task_id}')
+    #         return web.json_response({'task_id' : task_id, 'status': 'successful'})
+    #     # elif os.path.exists(f'result/{task_id}'):
+    #     #     # either image is being processed or error occurred
+    #     #     if task_id not in TASK_STATES:
+    #     #         # error occurred
+    #     #         return web.json_response({'state': 'error'})
+    #     else:
+    #         os.makedirs(f'result/{task_id}/', exist_ok=True)
+    #         img.save(f'result/{task_id}/input.jpg')
+    #         QUEUE.append(task_id)
+    #         now = time.time()
+    #         TASK_DATA[task_id] = {
+    #             'detection_size': size,
+    #             'translator': selected_translator,
+    #             'target_lang': target_language,
+    #             'detector': detector,
+    #             'direction': direction,
+    #             'created_at': now,
+    #             'requested_at': now,
+    #         }
+    #         TASK_STATES[task_id] = {
+    #             'info': 'pending',
+    #             'finished': False,
+    #         }
+    #     while True:
+    #         await asyncio.sleep(0.1)
+    #         if task_id not in TASK_STATES:
+    #             break
+    #         state = TASK_STATES[task_id]
+    #         if state['finished']:
+    #             break
+    #     return web.json_response({'task_id': task_id, 'status': 'successful' if state['finished'] else state['info']})
 
-    async def err_handling(self, func, req, format, ri=False):
+    async def err_handling(self, func, req, format, ri=True):
         try:
             if req.content_type == 'application/json' or req.content_type == 'multipart/form-data':
                 if req.content_type == 'application/json':

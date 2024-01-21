@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
+import { Button } from 'antd';
 
 function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
@@ -50,7 +51,9 @@ function ImageProcessor( {imgs} ) {
         <div className="imageRenderer">
             <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading...</p>
             <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Time Elapsed: {timeElapsed}</p>
-            <button onClick={processImages}>Process Images</button>
+            <Button type="primary" style={{ background: '#ffb7ff', borderColor: '#ffb7ff', margin: '10px'}} onClick={() => processImages()}>
+                Translate Images!
+            </Button>
             <div>
                 {processedImages.map((image, index) => (
                     <img key={index} src={image} alt={`Processed ${index}`} />
