@@ -1,0 +1,91 @@
+.home {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.description {
+    text-align: right;
+    font-size: 18px !important;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.features {
+    font-size: 18px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.tech-stack {
+    font-size: 18px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.snap {
+    scroll-snap-align: start;
+    height: 100vh;
+}
+
+.sep {
+    margin-bottom: 140px;
+}
+
+.intro {
+    text-align: center;
+    font-size: 40px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.title {
+    color: #444;
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 70px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.contact {
+    text-align: right;
+    font-size: 18px !important;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.acknowledgements {
+    font-size: 18px !important;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.subtitle {
+    color: #666;
+    font-size: 60px !important;
+    margin-top: 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.description, .contact, .acknowledgements {
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
+}
+
+.features {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.features li {
+    margin-bottom: 10px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-item {
+    width: 45%; /* or whatever width you want */
+}
+
