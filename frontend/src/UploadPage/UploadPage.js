@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ImageRenderer from './ImageRenderer';
 
 
-function MangaRenderer({setCurrentKey}) {
+function UploadPage({setCurrentKey}) {
   const [images, setImages] = useState([]);
   
 
@@ -33,4 +33,4 @@ function MangaRenderer({setCurrentKey}) {
   );
 }
 
-export default MangaRenderer;
+export default UploadPage;

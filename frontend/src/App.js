@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import './App.css';
-import ImageRenderer from './MangaPage/ImageRenderer';
+import ImageRenderer from './UploadPage/ImageRenderer';
 import mangalatorlogo from './assets/mangalatorlogo.png';
 import menu from './assets/menu.svg'
 import user from './assets/user.svg'
@@ -12,17 +12,18 @@ import home from './assets/home.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
 import AccountScreen from './AccountScreen/AccountScreen';
-import MangaPage from './MangaPage/MangaPage';
+import MangaPage from './UploadPage/UploadPage';
 import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
 
 import { Layout, Menu } from 'antd';
 import MangaReader from "./MangaReader/MangaReader";
+import { KeyContext } from "./context/KeyContext";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
-  const [currentKey, setCurrentKey] = useState("home");
+  const { currentKey, setCurrentKey } = useContext(KeyContext);
   
   const handleClick = e => {
     setCurrentKey(e.key);
@@ -57,7 +58,11 @@ function App() {
           </Menu.Item>
           <Menu.Item key="account">
             <img className='icon' src={user} alt='user'></img>
-            <Link to="/" className='sider-text'>Sign in/Register</Link>
+            <Link to="/account" className='sider-text'>Account</Link>
+          </Menu.Item>
+          <Menu.Item key="login">
+            <img className='icon' src={login} alt='login'></img>
+            <Link to="/login" className='sider-text'>Sign in/Register</Link>
           </Menu.Item>
         </Menu>
         </Sider>
@@ -65,10 +70,10 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account" element={<AccountScreen />} />
               <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" component={<LoginPage />} />
-              <Route path="/register" component={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>
