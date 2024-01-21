@@ -1,0 +1,15 @@
+.hide {
+    display: none;
+}
+
+.valid {
+    display: inline;
+}
+
+.invalid {
+    display: inline;
+}
+
+.offscreen {
+    display: none;
+}

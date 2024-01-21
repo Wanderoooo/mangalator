@@ -33,7 +33,7 @@ function Login() {
             const response = await axios.post('https://your-api-url.com/process',
                 JSON.stringify({username: user, password: pwd}),
                 {
-                    headers: { 'Content-Type': 'application.json' },
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
@@ -56,6 +56,7 @@ function Login() {
             } else {
                 setErrMsg('Login Failed');
             }
+            errRef.current.focus();
         }
     }
 
