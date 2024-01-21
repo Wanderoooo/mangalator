@@ -80,6 +80,14 @@ def generate_unique_string(length=10):
     unique_string = ''.join(secrets.choice(characters) for _ in range(length))
     return unique_string
 
+def path_to_64string(path):
+    with open(path, "rb") as image_file:
+        # Read the binary data of the image
+        binary_data = image_file.read()
+        # Convert binary data to base64-encoded string
+        base64_string = base64.b64encode(binary_data).decode("utf-8") 
+        return "data:image/png;base64," + base64_string
+
 # returns a list of unique paths given a list of base64 strings.
 async def cook(files):
     # Save the uploaded image to the upload directory (optional)
@@ -107,7 +115,7 @@ async def cook(files):
             
           
 
-    translator_command = f"-m manga_translator -v --translator=google -l ENG -i {file_path}"
+    translator_command = f"-m manga_translator -v --translator=deepl --detection-size 2560 --manga2eng -l ENG -i {file_path}" 
 
     # Construct the command using the Python executable path
     command = [sys.executable] + translator_command.split()
@@ -124,14 +132,8 @@ async def cook(files):
     # file_list = os.listdir(directory_path)
         
     for i in range(0, len(images)):
-        path = directory_path + "/" + images[i] 
-        with open(path, "rb") as image_file:
-            # Read the binary data of the image
-            binary_data = image_file.read()
-            # Convert binary data to base64-encoded string
-            base64_string = base64.b64encode(binary_data).decode("utf-8") 
-            
-            images[i] =  "data:image/png;base64," + base64_string
+        images[i] = directory_path + "/" + images[i] 
+
 
     # Iterate over the files
 
@@ -144,12 +146,24 @@ async def add(request: Request):
     get_database()
     try:
         payload = await request.json()
-        # collection = db.mangas
+        collection = db.mangas
         images = payload["image"]
-        translatedImages = await cook(images)
-        # if (payload["key"]):
-        #     for image in translatedImages:
-        #         collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
+        imagePaths = await cook(images)
+        translatedImages = []
+        for i in range(0, len(imagePaths)): 
+            path = imagePaths[i]    
+            with open(path, "rb") as image_file:
+                # Read the binary data of the image
+                binary_data = image_file.read()
+                # Convert binary data to base64-encoded string
+                base64_string = base64.b64encode(binary_data).decode("utf-8") 
+                
+                translatedImages.append("data:image/png;base64," + base64_string)
+                
+        if (payload["key"]):
+            for image in imagePaths:
+                collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
+                
         return {"translated": translatedImages, "name": payload["name"]}
     except Exception as e:
         raise HTTPException(status_code=404, detail=f"Error!!!: {e}")
@@ -164,6 +178,9 @@ async def display(request: Request):
         payload = await request.json()
         collection = db.mangas
         pages = collection.find({"key": payload["key"], "name": payload["name"]})
+        for page in pages:
+            page["image"] = path_to_64string(page["image"])
+            
         return {"pages": pages}
     except Exception as e:
         raise HTTPException(status_code=404, detail="pages display failed")
@@ -180,8 +197,8 @@ async def dashboard(request: Request):
         names = collection.find({"key": payload["key"]}).distinct("name")
         for name in names:
             thumbnail = collection.find({"name": name}).sort([("_id", -1)]).limit(1)
-            imagePath = thumbnail.get("image")
-            dashboardArray.append({"name":name, "image": imagePath})
+            image = path_to_64string( thumbnail.get("image"))
+            dashboardArray.append({"name":name, "image": image})
         return dashboardArray
     except Exception as e:
         raise HTTPException(status_code=404, detail="dashboard render failed")

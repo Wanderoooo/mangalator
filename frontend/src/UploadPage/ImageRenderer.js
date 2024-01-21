@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
-import amogus from '../uploads/AkIxaTUEBJ-translated/5VCFXmMbeq.png'
 
 import { Button, Form, Input } from 'antd';
     import { Paper } from '@mui/material';
@@ -96,9 +95,6 @@ function ImageProcessor( {imgs} ) {
                 </Form.Item>
                 <Form.Item>
                     <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading, Time Elapsed: {timeElapsed}</p>
-                </Form.Item>
-                <Form.Item>
-                    <img src={amogus}/>
                 </Form.Item>
             </Form>
     );
