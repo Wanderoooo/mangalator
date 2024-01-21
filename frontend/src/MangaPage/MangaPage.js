@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ImageRenderer from './ImageRenderer';
 
-function MangaRenderer() {
+
+function MangaRenderer({setCurrentKey}) {
   const [images, setImages] = useState([]);
+  
 
   const handleImageUpload = event => {
     let files = event.target.files;
@@ -17,6 +19,7 @@ function MangaRenderer() {
       };
 
       reader.readAsDataURL(files[i]);
+      
     }
   };
 
@@ -25,7 +28,7 @@ function MangaRenderer() {
   return (
     <div className="MangaRenderer">
       <input type="file" accept=".png, .jpg, .jpeg" multiple onChange={handleImageUpload} title="Input files here" placeholder="ohueidjsk" />
-      <ImageRenderer imgs={images}/>
+      <ImageRenderer imgs={images} setCurrentKey={setCurrentKey}/>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import bookopen from './assets/book-open.svg'
 import home from './assets/home.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
-import AccountPage from './AccountScreen/AccountScreen';
+import AccountScreen from './AccountScreen/AccountScreen';
 import MangaPage from './MangaPage/MangaPage';
 import LoginPage from './LoginScreen/Login';
 import RegisterPage from './LoginScreen/Register';
@@ -22,6 +22,11 @@ import MangaReader from "./MangaReader/MangaReader";
 const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
+  const [currentKey, setCurrentKey] = useState("home");
+  
+  const handleClick = e => {
+    setCurrentKey(e.key);
+  };
 
   return (
     <Layout className='full-height'>
@@ -37,7 +42,7 @@ function App() {
       <Layout>
         <Router>
         <Sider className='sider'>
-        <Menu className='sider'>
+        <Menu selectedKeys={[currentKey]} onClick={handleClick} className='sider'>
           <Menu.Item key="home">
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
