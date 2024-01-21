@@ -1,0 +1,17 @@
+.signin-section {
+    background-color: #e2fdf8;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: auto;
+  }
+  
+  .ant-btn-primary {
+    background-color: #4a8fe7;
+    border-color: #4a8fe7;
+  }
+  
+  .signup-link {
+    color: #4a8fe7;
+  }
+  
