@@ -112,7 +112,7 @@
 .description, .contact, .acknowledgements {
     font-size: 1em;
     line-height: 1.5em;
-    margin-bottom: 20px;
+    margin-bottom: 0px !important;
 }
 
 .features {
