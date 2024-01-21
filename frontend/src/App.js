@@ -57,7 +57,11 @@ function App() {
           </Menu.Item>
           <Menu.Item key="account">
             <img className='icon' src={user} alt='user'></img>
-            <Link to="/" className='sider-text'>Sign in/Register</Link>
+            <Link to="/account" className='sider-text'>Account</Link>
+          </Menu.Item>
+          <Menu.Item key="login">
+            <img className='icon' src={login} alt='login'></img>
+            <Link to="/login" className='sider-text'>Sign in/Register</Link>
           </Menu.Item>
         </Menu>
         </Sider>
@@ -65,10 +69,10 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountPage />} />
+              <Route path="/account" element={<AccountScreen />} />
               <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" component={<LoginPage />} />
-              <Route path="/register" component={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
               <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>
