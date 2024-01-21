@@ -60,7 +60,9 @@ async def add(request: Request):
     try:
         payload = await request.json()
         collection = db.mangas
-        collection.insert_one({"key": payload["key"], "image": payload["image"]})
+        images = payload["image"]
+        for image in images:
+            collection.insert_one({"key": payload["key"], "image": image, "name": payload["name"]})
         return {"manga added successfully"}
     except Exception as e:
         return {"manga did not get added"}
