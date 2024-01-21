@@ -34,7 +34,8 @@ function UploadPage({setCurrentKey, userKey}) {
   return (
     <div className="MangaRenderer">
       <Typography.Title level={2}>Upload raw images here; we take care of the rest</Typography.Title>
-      <Upload.Dragger name="files" action="/upload.do" multiple={true} onChange={handleImagesUpload} style={{minHeight:'550px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+      <Upload.Dragger name="files" action="/upload.do" multiple={true} 
+      onChange={handleImagesUpload} style={{minHeight:'550px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}} onRemove={() => false} beforeUpload={() => false}>
         <div className="upload-hint">
         <p className="ant-upload-drag-icon">
           <UploadOutlined />
