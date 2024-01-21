@@ -21,6 +21,11 @@ import { Layout, Menu } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
+  const [currentKey, setCurrentKey] = useState("home");
+  
+  const handleClick = e => {
+    setCurrentKey(e.key);
+  };
 
   return (
     <Layout className='full-height'>
@@ -36,7 +41,7 @@ function App() {
       <Layout>
         <Router>
         <Sider className='sider'>
-        <Menu className='sider'>
+        <Menu selectedKeys={[currentKey]} onClick={handleClick} className='sider'>
           <Menu.Item key="home">
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
@@ -60,9 +65,9 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/account" element={<AccountScreen />} />
-              <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" component={<LoginPage />} />
-              <Route path="/register" component={<RegisterPage />} />
+              <Route path="/translator" element={<MangaPage setCurrentKey={setCurrentKey}/>} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </div>
         </Content>
