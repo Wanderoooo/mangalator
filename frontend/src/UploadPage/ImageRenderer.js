@@ -18,11 +18,8 @@ function ImageProcessor( {imgs} ) {
     const navigate = useNavigate();
     const { currentKey, setCurrentKey } = useContext(KeyContext);
     const { auth, setAuth } = useContext(AuthContext);
-
     const [albumName, setAlbumname ] = useState('');
-
-
-    const { setAccountContext } = useContext(AccountCollection);
+    const { accountContext, setAccountContext } = useContext(AccountCollection);
 
     useEffect(() => {
         let interval;
@@ -47,13 +44,29 @@ function ImageProcessor( {imgs} ) {
             console.log(auth.user);
             const response = await axios.post('http://localhost:8000/add', {"image": imgs, "key": "user1", "name": albumName});
             //let newImages = await alterImageForTesting(imgs);
-            setLoading(false);
-            setProcessedImages(response?.data.translated);
-            console.log("Number of items in response" + response?.data);
-            
-            setAccountContext(response?.data)
-            setCurrentKey('account');
-            navigate('/account');
+            const paths = response?.data.translated;
+            console.log(paths);
+            try {
+                // let promises = paths.map(async (path) => {
+                //   const fullPath = '../' + path;
+                //   console.log(fullPath);
+                //   const module = await import(fullPath);
+                //   return module.default;
+                // });
+                // console.log("The map itself actually finished");
+              
+                // resultImages = await Promise.all(promises);
+              
+                setLoading(false);
+                if (paths?.length > 0) {
+                    console.log("Jumping to the next page");
+                  setAccountContext([...accountContext, {name: response?.data.name, data: paths}])
+                  setCurrentKey('account');
+                  navigate('/account');
+                }
+              } catch (error) {
+                console.log("Error caught, the map failed", error);
+              }
         } catch (error) {
             if (!error?.response) {
                 console.log('No Server Response');

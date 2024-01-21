@@ -29,6 +29,8 @@ function App() {
     setCurrentKey(e.key);
   };
 
+  const [userKey, setUserKey] = useState(true)
+
   return (
     <Layout className='full-height'>
       <Header className='topbar'>
@@ -70,17 +72,16 @@ function App() {
           <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/account" element={<AccountScreen />} />
+              <Route path="/account" element={<AccountScreen userKey={userKey}/>} />
               <Route path="/translator" element={<MangaPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage setUserKey={setUserKey} userKey={userKey}/>} />
+              <Route path="/register" element={<RegisterPage setUserKey={setUserKey} userKey={userKey}/>} />
               <Route path="/reader" element={<MangaReader />} />
             </Routes>
           </div>
         </Content>
         </Router>
       </Layout>
-      <Footer>footer</Footer>
     </Layout>
   );
 }
