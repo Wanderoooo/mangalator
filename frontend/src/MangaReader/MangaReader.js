@@ -27,7 +27,7 @@ export default function MangaReader(props) {
     const carouselRef = useRef();
     const MANGACOUNT = 3; //change
     const [currManga, setCurrManga] = useState(0);
-    let scrollInput = [];
+    let scrollInput = [img7034, img7035, img7036];
   
     const next = () => {
       carouselRef.current.next();
