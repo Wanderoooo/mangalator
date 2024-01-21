@@ -38,6 +38,8 @@
   width: 100px;
   height: 100px;
   top: 12.5px;
+  left: 50%;
+  right: 50%;
 }
 
 .menu {
@@ -51,6 +53,11 @@
   z-index: 1;
 }
 
+.sider {
+  background-color: #c9e4ca !important; /* replace #yourColorHere with your color */
+}
+
+
 .rectangle {
   width: 100%;
   height: 122px;
@@ -58,7 +65,9 @@
 }
 
 .topbar {
+  background-color: #e2fdf8 !important;
   height: 122px;
+  border: 1px solid #505050 !important;
 }
 
 .underlay {
