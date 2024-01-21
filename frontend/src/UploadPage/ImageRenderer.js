@@ -34,11 +34,12 @@ function ImageProcessor( {imgs} ) {
         try {
             console.log("TODO: PROCESS IMAGES NEEDS API HELP")
             setLoading(true);
-            //const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.accessToken}));
-            let newImages = await alterImageForTesting(imgs);
+            console.log(imgs);
+            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.user}));
+            //let newImages = await alterImageForTesting(imgs);
             setLoading(false);
-            setProcessedImages(newImages);
-            if (newImages.length > 0 && !loading) {
+            setProcessedImages(response?.data);
+            if (processedImages.length > 0 && !loading) {
                 setCurrentKey('account');
                 navigate('/account');
             }
