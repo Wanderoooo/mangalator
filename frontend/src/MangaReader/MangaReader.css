@@ -5,9 +5,9 @@
 }
 
 .cimg {
-    max-width: 100%; /* adjust as needed */
-    max-height: 100%; /* adjust as needed */
-}
+    max-width: 100%;
+    max-height: 600px; 
+  }
   
 .carousel-button {
     margin: 0 10px;
