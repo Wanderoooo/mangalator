@@ -12,8 +12,8 @@ Mangalator is a platform designed to help mangakas reach a wider audience. It al
 
 ## Setup
 
-pip install --upgrade httpcore \n
-pip install --upgrade httpx \n
+pip install --upgrade httpcore $\n$
+pip install --upgrade httpx $\n$
 pip install git+https://github.com/kodalli/pydensecrf.git
 
 ## Contact
