@@ -7,6 +7,12 @@ app = FastAPI()
 counter = 1
 # create folder if does not exist
 
+@app.post("/login/{payload}")
+async def login(payload):
+    
+    return {"payload": payload}
+
+    
 @app.get("/")
 async def root():
     return {"message": "!!! root"}
