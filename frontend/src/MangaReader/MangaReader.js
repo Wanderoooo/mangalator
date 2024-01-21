@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Carousel, Button, Divider } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import mangalatorlogo from '../assets/mangalatorlogo.png';
@@ -10,12 +10,13 @@ import './MangaReader.css';
 import { Flex } from 'antd';
 
 function VerticalScroll(props) {
+    let base64s = props.images;
+
     return (
       <div className="image-container">
-        <img src={img7034} alt="Image 1" />
-        <img src={img7035} alt="Image 2" />
-        <img src={img7036} alt="Image 3" />
-        {/* Add more images as needed */}
+        {base64s.map((base64String, index) => (
+            <img key={index} src={base64String} alt={`Image ${index}`} />
+        ))}
       </div>
     );
 }
@@ -24,15 +25,25 @@ function VerticalScroll(props) {
 
 export default function MangaReader(props) {
     const carouselRef = useRef();
+    const MANGACOUNT = 3; //change
+    const [currManga, setCurrManga] = useState(0);
+    let scrollInput = [];
   
     const next = () => {
       carouselRef.current.next();
+      setCurrManga(previous => {return (previous += 1) % MANGACOUNT});
     }
   
     const previous = () => {
       carouselRef.current.prev();
+      setCurrManga(previous => {
+        if ((previous -= 1) < 0) {
+            return MANGACOUNT - 1;
+        }
+        return previous;
+      });
     }
-  
+    
     return (
         <Flex style={{ flexDirection: 'row'}}>
             <Flex style={{ flexDirection: 'row' }}>
@@ -51,7 +62,7 @@ export default function MangaReader(props) {
                 <Button className="carousel-button carousel-button-right" onClick={next} icon={<RightOutlined />}/>
             </Flex>
             <Divider type="vertical" className="divider" />
-            <VerticalScroll />
+            <VerticalScroll images={scrollInput} />
         </Flex>
     );
   }
