@@ -3,13 +3,16 @@ import ImageRenderer from './ImageRenderer';
 import { Upload, Button } from 'antd';
 import { Typography } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import './UploadPage.css'
 
 function UploadPage({setCurrentKey}) {
   const [images, setImages] = useState([]);
+  const uniqueImages = Array.from(new Map(images.map(image => [image["src"], image])).values());
+  console.log(uniqueImages);
+  console.log(uniqueImages.length);
   
   useEffect(() => {
     if (new Set(images).size !== images.length) {
-      const uniqueImages = [...new Set(images)];
       setImages(uniqueImages);
     }
   }, [images]);
@@ -21,20 +24,18 @@ function UploadPage({setCurrentKey}) {
       const reader = new FileReader();
   
       reader.onloadend = () => {
-        setImages(prevImages => [...prevImages, reader.result]);
+        setImages(prevImages => [...prevImages, {src: reader.result, name: file.name}]);
       };
   
       reader.readAsDataURL(file);
     }
   };
   
-
-  console.log(images);
-
   return (
     <div className="MangaRenderer">
       <Typography.Title level={2}>Upload raw images here; we take care of the rest</Typography.Title>
-      <Upload.Dragger name="files" action="/upload.do" multiple={true} onChange={handleImagesUpload}>
+      <Upload.Dragger name="files" action="/upload.do" multiple={true} onChange={handleImagesUpload} style={{minHeight:'550px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <div className="upload-hint">
         <p className="ant-upload-drag-icon">
           <UploadOutlined />
         </p>
@@ -42,8 +43,14 @@ function UploadPage({setCurrentKey}) {
         <p className="ant-upload-hint">
           Support for a single or bulk upload. Accepted types: PNG, JPG, JPEG
         </p>
+        </div>
+        <div style={{ maxHeight: '200px', overflowY: 'scroll' }}>
+          {uniqueImages.map((image, index) => (
+            <img key={index} src={image.src} alt={image.name} style={{height: '200px', width: 'auto'}}/>
+          ))}
+        </div>
       </Upload.Dragger>
-      <ImageRenderer imgs={images} setCurrentKey={setCurrentKey}/>
+      <ImageRenderer imgs={images.map(image => image.src)} setCurrentKey={setCurrentKey}/>
     </div>
   );
 }

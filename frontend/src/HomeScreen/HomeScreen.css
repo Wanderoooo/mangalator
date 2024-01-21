@@ -38,6 +38,18 @@
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
+.intro-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.intro-image {
+    width: 'auto'; /* adjust as needed */
+    height: 400px; /* adjust as needed */
+}
+
+
 .title {
     color: #444;
     font-size: 2em;
@@ -89,3 +101,6 @@
     width: 45%; /* or whatever width you want */
 }
 
+.right {
+    float: right;
+}

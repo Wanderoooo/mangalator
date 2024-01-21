@@ -2,14 +2,24 @@ import React from 'react';
 import Login from "../LoginScreen/Login";
 import RegisterPage from "../LoginScreen/Register";
 import './HomeScreen.css'; // Importing a CSS file
+import wellwin from '../assets/well_win.png'
+import example1 from '../assets/example1.png'
+import example2 from '../assets/example2.png'
+import example3 from '../assets/example3.png'
+
 
 function HomeScreen() {
     return (
         <div className="home">
             <section className='snap'>
             <h1 className="title">Mangalator</h1>
-            <p className="intro">Welcome to Mangalator, a revolutionary platform that bridges the gap between mangakas and their global audience.</p>
-            <p className='intro'> Scroll down to learn more... </p>
+            <div className="intro-container">
+                
+                <p className="intro">Welcome to Mangalator, a revolutionary platform that bridges the gap between mangakas and their global audience. Scroll down to learn more...</p>
+                
+            </div>
+            <img src={wellwin} alt="Example 1" className="intro-image"/>
+            <img src={wellwin} alt="Example 2" className="intro-image right"/>
             </section>
             <section className='snap'>
             <h2 className="description subtitle">Description</h2>
