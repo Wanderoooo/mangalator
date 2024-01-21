@@ -39,7 +39,9 @@ function ImageProcessor( {imgs} ) {
             setLoading(true);
             console.log(imgs);
             console.log(albumName);
-            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, name: albumName, key: auth.user}));
+            console.log("Images: " + imgs);
+            console.log(auth.user);
+            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.user, name: 'name'}));
             //let newImages = await alterImageForTesting(imgs);
             setLoading(false);
             setProcessedImages(response?.data);
