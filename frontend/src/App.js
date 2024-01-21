@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import './App.css';
 import ImageRenderer from './MangaPage/ImageRenderer';
 import mangalatorlogo from './assets/mangalatorlogo.png';
@@ -18,11 +18,12 @@ import RegisterPage from './LoginScreen/Register';
 
 import { Layout, Menu } from 'antd';
 import MangaReader from "./MangaReader/MangaReader";
+import { KeyContext } from "./context/KeyContext";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
-  const [currentKey, setCurrentKey] = useState("home");
+  const { currentKey, setCurrentKey } = useContext(KeyContext);
   
   const handleClick = e => {
     setCurrentKey(e.key);

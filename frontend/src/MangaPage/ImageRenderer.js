@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "./ImageRenderer.css"
+import { KeyContext } from '../context/KeyContext';
+import AuthContext from '../context/AuthProvider';
 
-function ImageProcessor( {imgs, setCurrentKey} ) {
+function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
+    const [timeElapsed, setTimeElapsed] = useState(1);
     const [processedImages, setProcessedImages] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const throbRef = useRef();
     const navigate = useNavigate();
+    const { currentKey, setCurrentKey } = useContext(KeyContext);
+    const { auth } = useContext(AuthContext);
+
+
+    useEffect(() => {
+        let interval;
+        if (loading) {
+          interval = setInterval(() => {
+            setTimeElapsed((prevTimeElapsed) => prevTimeElapsed + 1);
+          }, 1000);
+        } else {
+          clearInterval(interval);
+          setTimeElapsed(1);
+        }
+        return () => clearInterval(interval);
+      }, [loading]);
 
     const processImages = async () => {
         try {
             console.log("TODO: PROCESS IMAGES NEEDS API HELP")
-            //const response = await axios.post('https://your-api-url.com/process', images);
+            setLoading(true);
+            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.accessToken}));
             let newImages = await alterImageForTesting(imgs);
+            setLoading(false);
             setProcessedImages(newImages);
-            if (newImages.length > 0) {
-                setCurrentKey('read');
+            if (newImages.length > 0 && !loading) {
+                setCurrentKey('account');
                 navigate('/account');
             }
         } catch (error) {
@@ -23,7 +47,9 @@ function ImageProcessor( {imgs, setCurrentKey} ) {
     };
 
     return (
-        <div>
+        <div className="imageRenderer">
+            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading...</p>
+            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Time Elapsed: {timeElapsed}</p>
             <button onClick={processImages}>Process Images</button>
             <div>
                 {processedImages.map((image, index) => (
