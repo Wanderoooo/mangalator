@@ -1,3 +1,8 @@
+.ant-menu-item-selected {
+  background-color: #b8e0b1 !important; /* Change to your desired color */
+}
+
+
 .App {
   text-align: center;
 }
@@ -26,6 +31,62 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+}
+
+.content {
+  margin: 20px;
+}
+
+.full-height {
+  height: 100vh !important;
+}
+
+.logo {
+  width: 47px;
+  height: 47px;
+  top: 9px;
+  left: 20px;
+}
+
+.menu {
+  z-index: 2;
+  left: 34px;
+  top: 34px;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+}
+
+.sider {
+  background-color: #c9e4ca !important; 
+  scrollbar-highlight-color: #000000 !important;
+}
+
+
+.rectangle {
+  width: 100%;
+  height: 122px;
+  background: #e2fdf8;
+}
+
+.topbar {
+  background-color: #e2fdf8 !important;
+  height: 65px;
+  border: 1px solid #505050 !important;
+}
+
+.underlay {
+  position: absolute;
+  z-index: 0;
+  top: 0px;
 }
 
 @keyframes App-logo-spin {
