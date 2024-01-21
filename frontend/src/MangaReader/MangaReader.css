@@ -1,14 +1,31 @@
 .carousel {
-    width: 400px;
-    height: 900px;
+    width: 300px;
+    height: 600px;
     object-fit: contain !important;
 }
 
 .cimg {
-    max-width: 100%;
+    max-width: 300px;
     max-height: 600px; 
   }
   
 .carousel-button {
     margin: 0 10px;
 }
+
+.divider {
+    margin: 10px;
+    height: 625px;
+}
+
+.image-container {
+    width: 100%; /* Adjust as needed */
+    height: 625px; /* Adjust as needed */
+    overflow-y: auto;
+  }
+  
+  .image-container img {
+    width: 100%; /* Adjust as needed */
+    height: auto;
+  }
+  
