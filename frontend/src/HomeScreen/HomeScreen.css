@@ -45,9 +45,36 @@
 }
 
 .intro-image {
-    width: 'auto'; /* adjust as needed */
-    height: 400px; /* adjust as needed */
+    width: 'auto' !important; /* adjust as needed */
+    height: 480px !important; /* adjust as needed */
+    padding: 5px;
 }
+
+.intro-image2 {
+    width: 500px !important; /* adjust as needed */
+    height: 'auto' !important; /* adjust as needed */
+    padding: 5px;
+}
+.image-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.image {
+    width: 100px;  /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+}
+
 
 
 .title {
