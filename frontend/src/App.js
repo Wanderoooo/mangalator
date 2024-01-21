@@ -22,6 +22,12 @@ function App() {
           <li>
             <Link to="/translator">Translator</Link>
           </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
         </ul>
       </nav>
 
@@ -29,8 +35,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/translator" element={<MangaPage />} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
+        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/register" element={<RegisterPage/>} />
       </Routes>
     </div>
   </Router>
