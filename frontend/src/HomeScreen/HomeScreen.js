@@ -6,7 +6,6 @@ function HomeScreen() {
         <div>
             <Login/>
             <RegisterPage/>
-
         </div>
     );
 }

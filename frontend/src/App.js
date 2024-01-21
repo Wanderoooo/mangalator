@@ -8,6 +8,7 @@ import upload from './assets/upload.svg'
 import search from './assets/search.svg'
 import login from './assets/log-in.svg'
 import bookopen from './assets/book-open.svg'
+import home from './assets/home.svg'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomeScreen/HomeScreen';
 import AccountPage from './AccountScreen/AccountScreen';
@@ -20,15 +21,6 @@ import { Layout, Menu } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [activeContent, setActiveContent] = useState("home"); 
-
-  const handleImageUpload = event => {
-    let files = Array.from(event.target.files);
-    setImages(prevImages => [...prevImages, ...files]);
-  };
-  
-  console.log(images);
 
   return (
     <Layout className='full-height'>
@@ -46,18 +38,25 @@ function App() {
         <Sider className='sider'>
         <Menu className='sider'>
           <Menu.Item key="home">
-            <Link to="/">Home</Link>
+            <img className='icon' src={home} alt='home'></img>
+            <Link to="/" className='sider-text'>Home</Link>
           </Menu.Item>
           <Menu.Item key="account">
-            <Link to="/account">Account</Link>
+            <img className='icon' src={user} alt='user'></img>
+            <Link to="/account" className='sider-text'>Profile</Link>
           </Menu.Item>
-          <Menu.Item key="translator">
-            <Link to="/translator">Translator</Link>
+          <Menu.Item key="read">
+            <img className='icon' src={bookopen} alt='read'></img>
+            <Link to="/account" className='sider-text'>Read</Link>
+          </Menu.Item>
+          <Menu.Item key="upload">
+            <img className='icon' src={upload} alt='upload'></img>
+            <Link to="/translator" className='sider-text'>Upload</Link>
           </Menu.Item>
         </Menu>
         </Sider>
-        <Content className='content'>
-          <div>
+        <Content className='content-box'>
+          <div className='content'>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/account" element={<AccountPage />} />
@@ -66,10 +65,6 @@ function App() {
               <Route path="/register" component={<RegisterPage />} />
             </Routes>
           </div>
-        <div className="App">
-         <ImageRenderer imgs={images}/>
-         <input type="file" accept=".png, .jpg, .jpeg" multiple onChange={handleImageUpload} title="Input files here" placeholder="ohueidjsk" />
-        </div>
         </Content>
         </Router>
       </Layout>
