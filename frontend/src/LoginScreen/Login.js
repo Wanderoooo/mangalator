@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Form, Input, Button, Typography, Alert } from 'antd';
 import './Login.css'; // Import the CSS file
 import AuthContext from '../context/AuthProvider';
-
+import Paper from '@mui/material/Paper';
 const { Title } = Typography;
 
 
@@ -67,6 +67,8 @@ function Login() {
     //Steal the HTML and authentication from this video https://youtu.be/X3qyxo_UTR4?si=Evobd3HCobfdD1MU
     return (
         <section>
+            <Paper className="Paper">
+                
             <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
             <Form onFinish={handleSubmit}>
@@ -85,6 +87,7 @@ function Login() {
                     Don't have an account yet? <Link to="/register">Sign Up</Link>
                 </span>
             </p>
+            </Paper>
             
         
         </section>
