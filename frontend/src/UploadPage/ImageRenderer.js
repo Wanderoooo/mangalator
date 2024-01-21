@@ -19,7 +19,7 @@ function ImageProcessor( {imgs} ) {
     const { currentKey, setCurrentKey } = useContext(KeyContext);
     const { auth, setAuth } = useContext(AuthContext);
     const [albumName, setAlbumname ] = useState('');
-    const { setAccountContext } = useContext(AccountCollection);
+    const { accountContext, setAccountContext } = useContext(AccountCollection);
 
     useEffect(() => {
         let interval;
@@ -60,7 +60,7 @@ function ImageProcessor( {imgs} ) {
                 setLoading(false);
                 if (paths?.length > 0) {
                     console.log("Jumping to the next page");
-                  setAccountContext([{name: response?.data.name, data: paths}])
+                  setAccountContext([...accountContext, {name: response?.data.name, data: paths}])
                   setCurrentKey('account');
                   navigate('/account');
                 }
