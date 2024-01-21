@@ -29,7 +29,7 @@ function App() {
     setCurrentKey(e.key);
   };
 
-  const [userKey, setUserKey] = useState()
+  const [userKey, setUserKey] = useState(true)
 
   return (
     <Layout className='full-height'>
@@ -50,20 +50,18 @@ function App() {
             <img className='icon' src={home} alt='home'></img>
             <Link to="/" className='sider-text'>Home</Link>
           </Menu.Item>
-          {userKey && 
           <Menu.Item key="read">
             <img className='icon' src={bookopen} alt='read'></img>
             <Link to="/reader" className='sider-text'>Read</Link>
-          </Menu.Item>}
-          {userKey &&
+          </Menu.Item>
           <Menu.Item key="upload">
             <img className='icon' src={upload} alt='upload'></img>
             <Link to="/translator" className='sider-text'>Upload</Link>
-          </Menu.Item>}
-          {userKey && <Menu.Item key="account">
+          </Menu.Item>
+          <Menu.Item key="account">
             <img className='icon' src={user} alt='user'></img>
             <Link to="/account" className='sider-text'>Account</Link>
-          </Menu.Item>}
+          </Menu.Item>
           <Menu.Item key="login">
             <img className='icon' src={login} alt='login'></img>
             <Link to="/login" className='sider-text'>Sign in/Register</Link>
