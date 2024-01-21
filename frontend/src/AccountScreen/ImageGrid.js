@@ -55,7 +55,7 @@ function ImageGrid({userKey}) {
         } else {
             setErrMsg(`Loading Failed`);
         }
-        errRef.current.focus();
+        errRef?.current?.focus();
       }
     };
 
