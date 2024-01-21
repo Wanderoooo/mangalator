@@ -84,7 +84,7 @@ async def cook(files: List[UploadFile] = File(...)):
     # Save the uploaded image to the upload directory (optional)
 
     dir = generate_unique_string()
-    file_path = f"uploads/{dir}"
+    file_path = f"../uploads/{dir}"
     os.makedirs(file_path, exist_ok=True)
 
     images = []
