@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import "./ImageRenderer.css"
 import { KeyContext } from '../context/KeyContext';
 import AuthContext from '../context/AuthProvider';
-import { Button } from 'antd';
+import { Button, Form, Input } from 'antd';
+import { Paper } from '@mui/material';
 
 function ImageProcessor( {imgs} ) {
     const [images, setImages] = useState(imgs);
@@ -15,6 +16,8 @@ function ImageProcessor( {imgs} ) {
     const navigate = useNavigate();
     const { currentKey, setCurrentKey } = useContext(KeyContext);
     const { auth, setAuth } = useContext(AuthContext);
+
+    const [albumName, setAlbumname ] = useState('');
 
 
     useEffect(() => {
@@ -35,7 +38,8 @@ function ImageProcessor( {imgs} ) {
             console.log("TODO: PROCESS IMAGES NEEDS API HELP")
             setLoading(true);
             console.log(imgs);
-            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, key: auth.user}));
+            console.log(albumName);
+            const response = await axios.post('Process Images API', JSON.stringify({images: imgs, name: albumName, key: auth.user}));
             //let newImages = await alterImageForTesting(imgs);
             setLoading(false);
             setProcessedImages(response?.data);
@@ -49,18 +53,26 @@ function ImageProcessor( {imgs} ) {
     };
 
     return (
-        <div className="imageRenderer">
-            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading...</p>
-            <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Time Elapsed: {timeElapsed}</p>
-            <Button type="primary" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}} onClick={() => processImages()}>
-                Translate Images!
-            </Button>
-            <div>
-                {processedImages.map((image, index) => (
-                    <img key={index} src={image} alt={`Processed ${index}`} />
-                ))}
-            </div>
-        </div>
+            <Form className="imageRenderer" onFinish={processImages}>
+                <Form.Item label="Album Name" className="albumField" rules={[{ required: true, message: 'Please input a title for your album!' }]}>
+                    <Input onChange={(e) => setAlbumname(e.target.value)} value={albumName}/>
+                </Form.Item>
+                <Form.Item>
+                    <Button type="button" style={{ background: '#4a8fe7', borderColor: '#4a8fe7', margin: '10px'}}>
+                        Translate Images!
+                    </Button>
+                </Form.Item>
+                <Form.Item>
+                    <p ref={throbRef} className={loading? "throbbing" : "offscreen"} aria-live="assertive">Your Translation Is Loading, Time Elapsed: {timeElapsed}</p>
+                </Form.Item>
+                <Form.Item>
+                    <div>
+                        {processedImages.map((image, index) => (
+                            <img key={index} src={image} alt={`Processed ${index}`} />
+                        ))}
+                    </div>
+                </Form.Item>
+            </Form>
     );
 }
 async function alterImageForTesting(images) {

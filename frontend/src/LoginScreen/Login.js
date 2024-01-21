@@ -66,7 +66,7 @@ function Login() {
 
     //Steal the HTML and authentication from this video https://youtu.be/X3qyxo_UTR4?si=Evobd3HCobfdD1MU
     return (
-        <section>
+        <section className="sectionContainer">
             <Paper className="Paper">
                 
             <p ref={errRef} className={errMsg? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
