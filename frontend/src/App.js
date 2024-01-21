@@ -41,6 +41,7 @@ function App() {
           width='97px'
           height='97px'
         />
+        <h1 className="mangalator" aria-live="assertive">Mangalator</h1>
       </Header>
       <Layout>
         <Router>
