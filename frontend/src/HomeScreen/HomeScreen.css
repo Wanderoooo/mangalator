@@ -38,6 +38,50 @@
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
+.intro-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.intro-image {
+    width: 'auto' !important; /* adjust as needed */
+    height: 480px !important; /* adjust as needed */
+    padding: 5px;
+}
+
+.intro-image2 {
+    width: 500px !important; /* adjust as needed */
+    height: 'auto' !important; /* adjust as needed */
+    padding: 5px;
+}
+.image-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.column {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10;
+}
+
+.image {
+    width: 100px;  /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+}
+
+
+
 .title {
     color: #444;
     font-size: 2em;
@@ -89,3 +133,6 @@
     width: 45%; /* or whatever width you want */
 }
 
+.right {
+    float: right;
+}
