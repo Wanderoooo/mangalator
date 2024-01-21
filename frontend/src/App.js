@@ -80,7 +80,6 @@ function App() {
         </Content>
         </Router>
       </Layout>
-      <Footer>footer</Footer>
     </Layout>
   );
 }
