@@ -18,6 +18,10 @@ pip install -r requirements.txt \
 cd manga-image-translator \
 pip install -r requirements.txt
 
+//Removed commands from before
+pip install --upgrade httpcore \
+pip install --upgrade httpx \
+pip install git+https://github.com/kodalli/pydensecrf.git
 ## Contact
 
 For more information, questions, or feedback, please reach out to us at ___.
