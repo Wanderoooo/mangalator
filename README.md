@@ -22,6 +22,10 @@ pip install -r requirements.txt
 pip install --upgrade httpcore \
 pip install --upgrade httpx \
 pip install git+https://github.com/kodalli/pydensecrf.git
+
+uvicorn main:app --reload \
+
+to run without main
 ## Contact
 
 For more information, questions, or feedback, please reach out to us at ___.
