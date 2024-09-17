@@ -29,7 +29,7 @@ function App() {
     setCurrentKey(e.key);
   };
 
-  const [userKey, setUserKey] = useState()
+  const [userKey, setUserKey] = useState(true)
 
   return (
     <Layout className='full-height'>
